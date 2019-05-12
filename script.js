@@ -1,6 +1,6 @@
 //MAIN CONTROL
 
-const ControlColor = (props) =>
+const Controls = (props) =>
 {
     return(
         <div className="control-module">
@@ -12,17 +12,6 @@ const ControlColor = (props) =>
                     onChange={props.handleChange}
                     placeholder="HTML code..."/>
             </div>
-        </div>
-        );  
-};
-
-const ControlSize = (props) =>
-{
-    
-
-    
-    return(
-        <div className="control-module">
             <div className="control-triger">
                 <div className="control-name">width</div>
 
@@ -36,6 +25,8 @@ const ControlSize = (props) =>
         </div>
         );  
 };
+
+
 
 //ADDING BUTTONS
 
@@ -420,8 +411,8 @@ class App extends React.Component
 
                     <div id="control-panel">
                         <div className="control-section">
-                            <ControlColor handleChange={this.handleBackgroundInput} input={this.state.bacgroundColor}/>
-                            <ControlSize  handleChangeWidth={this.handleWidthInput} handleChangeHeight={this.handleHeightInput} inputWidth={this.state.width} inputHeight={this.state.height}/>
+                            <Controls handleChangeWidth={this.handleWidthInput} handleChangeHeight={this.handleHeightInput} inputWidth={this.state.width} inputHeight={this.state.height} handleChange={this.handleBackgroundInput} input={this.state.bacgroundColor}/>
+                            
                             
             
                             <div className="control-module">
