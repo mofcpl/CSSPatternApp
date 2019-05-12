@@ -1,0 +1,270 @@
+button:focus 
+{
+    outline:0;
+}
+
+button
+{
+    font-family: inherit;
+}
+
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+    margin: 5px;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  opacity: 1;
+}
+
+body
+{
+    width: 100vw;
+    height: 100vh;
+    font-size: 0.8vw;
+    font-family: 'Ubuntu', sans-serif;
+    background-image: linear-gradient(90deg, white);
+    display: grid;
+    grid-template-columns: 10% 20% 20% 50%;
+    grid-template-rows: 15% 10% 55% 15% 5%;
+    grid-template-areas: 
+    "logo logo top-ads top-ads"
+    "ads ads ads ads"
+    "side-ads aps aps aps"
+    "side-ads aps aps aps"
+    "footer footer footer footer";
+}
+
+
+#title
+{
+    background-color: #3c495d;
+    grid-area: logo;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+#title h1
+{
+    font-weight: 400;
+    font-size: 3.5em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+#top-ads
+{
+    grid-area: top-ads;
+    display: flex;
+    align-items: center;
+    background-color: #e0e4eb;
+}
+#top-ads div
+{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2em;
+}
+
+
+#banner-ads
+{
+    grid-area: ads;
+    display: flex;
+    align-items: center;
+}
+#banner-ads div
+{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2em;
+}
+
+
+#side-ads
+{
+    grid-area: side-ads;
+
+}
+
+#container
+{
+    grid-area: aps;
+}
+
+#canvas /* Obszar gdzie generowany jest wzór */
+{
+    height: 100%;
+    width: 40%;
+    border: 20px solid #e0e4eb;
+}
+
+#control-panel 
+{
+    height: 100%;
+    width: 50%;
+    margin-left: 2%;
+    padding: 10px 10px 10px 10px;
+    overflow-y: scroll;
+}
+
+#app
+{
+    display: flex;
+    height: 500px;
+}
+
+#primary-area /* Nakładka na canvas do generowania siatki */
+{
+    width: 100%;
+    height: 100%;   
+}
+
+/* Według hierarchi */
+
+
+.control-section 
+{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #e0e4eb;
+    
+}
+
+.control-lines
+{
+    padding: 10px 10px 10px 10px;
+    margin: 10px;
+    background-color: #c1cfd7;
+}
+
+.control-module
+{
+    
+    padding: 10px 10px 10px 10px;
+    height: 50px;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+
+}
+
+.control-lines .control-module
+{
+    border: 0;
+}
+
+.control-triger
+{
+    display: flex;
+    align-items: center;
+}
+.control-name
+{
+    font-size: 20px;
+}
+
+.control-triger input
+{
+    border: 0;
+    height: 30px;
+    padding: 0px 5px 0px 5px;
+    margin: 0px 10px 0px 10px;
+    font-family: inherit;
+}
+
+.control-button
+{
+    padding: 0px 10px 0px 10px;
+    height: 40px;
+    margin: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #92abb9;
+    border: 0;
+}
+
+.control-button:hover
+{
+    background-color: #839faf;
+}
+
+.control-button:active
+{
+    transform: scale(0.95);
+}
+
+
+.control-module input[type=number]
+{
+    width: 60px;
+    text-align: center;
+    border: 0;
+}
+
+.control-module input[type=color]
+{
+    background-color: #92abb9;
+    height: 40px;
+    cursor: pointer;
+}
+
+.control-module input[type=color]:hover
+{
+    background-color: #839faf;
+}
+
+
+
+#code-panel
+{
+    display: flex;
+    height: 100%;
+    margin-top: 40px;
+    justify-content: center;
+}
+
+#code-panel button
+{
+    margin-right: 20px;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 0px 10px 0px 10px;
+    background-color: #e0e4eb;
+    border: 0;
+}
+
+#code-panel button:hover
+{
+    background-color: #d0dbe1;
+}
+
+#code-panel button:active
+{
+
+    transform: scale(0.97);
+}
+
+
+#code
+{
+    height: 100px;
+    width: 800px;
+    word-break:break-all;
+    padding: 10px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 14px;
+    overflow-y: auto;
+    background-color: #eff3f5;
+}
+
+
+#footer
+{
+    grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
