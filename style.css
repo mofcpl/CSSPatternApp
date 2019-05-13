@@ -8,13 +8,41 @@ button
     font-family: inherit;
 }
 
-input[type="color"]::-webkit-color-swatch {
+input[type="color"]::-webkit-color-swatch 
+{
 	border: none;
     margin: 5px;
 }
 
-input[type=number]::-webkit-inner-spin-button {
+input[type=number]::-webkit-inner-spin-button 
+{
   opacity: 1;
+}
+input[type=checkbox]:focus
+{
+    outline:0;
+}
+
+input[type=checkbox]
+{
+    width: 30px;
+    -webkit-appearance: none;
+    background-color: white;
+    cursor: pointer;
+    transform: scale(0.7);
+}
+
+input[type=checkbox]:checked
+{
+    -webkit-appearance: none;
+    background-color: #839faf;
+
+}
+
+input[type=checkbox]:hover
+{
+    transform: scale(0.8);
+
 }
 
 body
@@ -159,6 +187,7 @@ body
 {
     display: flex;
     align-items: center;
+    margin-right: 20px;
 }
 .control-name
 {

@@ -22,6 +22,16 @@ const Controls = (props) =>
 
                 <input min="2" type="number" value={props.inputHeight} onChange={props.handleChangeHeight}/>
             </div>
+            <div className="control-triger">
+                <div className="control-name">grid</div>
+
+                <input type="checkbox" checked={props.grid} onChange={props.handleGrid}/>
+            </div>
+            <div className="control-triger">
+                <div className="control-name">repeat</div>
+
+                <input type="checkbox" checked={props.repeat} onChange={props.handleRepeat}/>
+            </div>
         </div>
         );  
 };
@@ -39,8 +49,6 @@ const Buttons = (props) =>
         <div className="control-triger">
             <button onClick={props.addLinear} className="control-button">add linear</button>
             <button onClick={props.addRadial} className="control-button">add radial</button>
-            <button onClick={props.showGrid} className="control-button">{props.gridText}</button>
-            <button onClick={props.repeat} className="control-button">{props.repeatText}</button>
         </div>
     );
 }
@@ -164,9 +172,9 @@ const Canvas = (props) =>
         })
     }
     
-    let repeat = "";
+    let repeat = true;
     
-    if(props.data.repeat == "true")
+    if(props.data.repeat == true)
     {
         repeat = "repeat";
     }
@@ -185,7 +193,7 @@ const Canvas = (props) =>
     
     
     
-    if ((props.data.width > 0 && props.data.height > 0) && props.data.grid == "true")
+    if ((props.data.width > 0 && props.data.height > 0) && props.data.grid == true)
     return(
         <div id="canvas" style={CanvasStyle}>
              <div id="primary-area" style={AreaStyle}></div>     
@@ -222,10 +230,8 @@ class App extends React.Component
             width: 100,
             height: 100,
             code: "press button to generate",
-            grid: "true",
-            gridText: "hide grid",
-            repeat: "true",
-            repeatText: "repeat off",
+            grid: true,
+            repeat: true,
             linears: [],
             radials: []
         }
@@ -346,14 +352,14 @@ class App extends React.Component
     {
         switch(this.state.grid)
             {
-                case "false":
+                case false:
                     {
-                        this.setState({grid: "true", gridText: "hide grid"});
+                        this.setState({grid: true});
                         break;
                     }
-                case "true":
+                case true:
                     {
-                        this.setState({grid: "false", gridText: "show grid"});
+                        this.setState({grid: false});
                         break;
                     }
             }
@@ -363,14 +369,14 @@ class App extends React.Component
     {
         switch(this.state.repeat)
             {
-                case "false":
+                case false:
                     {
-                        this.setState({repeat: "true", repeatText: "repeat off"});
+                        this.setState({repeat: true});
                         break;
                     }
-                case "true":
+                case true:
                     {
-                        this.setState({repeat: "false", repeatText: "repeat on"});
+                        this.setState({repeat: false});
                         break;
                     }
             }
@@ -411,12 +417,12 @@ class App extends React.Component
 
                     <div id="control-panel">
                         <div className="control-section">
-                            <Controls handleChangeWidth={this.handleWidthInput} handleChangeHeight={this.handleHeightInput} inputWidth={this.state.width} inputHeight={this.state.height} handleChange={this.handleBackgroundInput} input={this.state.bacgroundColor}/>
+                            <Controls handleChangeWidth={this.handleWidthInput} handleChangeHeight={this.handleHeightInput} inputWidth={this.state.width} inputHeight={this.state.height} handleChange={this.handleBackgroundInput} input={this.state.bacgroundColor} repeat={this.state.repeat} grid={this.state.grid} handleRepeat={this.handleRepeat} handleGrid={this.handleShowGrid}/>
                             
                             
             
                             <div className="control-module">
-                            <Buttons repeat={this.handleRepeat} repeatText={this.state.repeatText} gridText={this.state.gridText} showGrid={this.handleShowGrid}  addLinear={this.handleAddLinear} addRadial={this.handleAddRadial}/>
+                            <Buttons addLinear={this.handleAddLinear} addRadial={this.handleAddRadial}/>
                             
                             </div>
                         </div>
