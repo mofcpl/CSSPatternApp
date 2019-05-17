@@ -32,6 +32,14 @@ const Controls = (props) =>
 
                 <input type="checkbox" checked={props.repeat} onChange={props.handleRepeat}/>
             </div>
+            <div className="control-triger">
+                <div className="control-name">position</div>
+                <select value={props.positioning} onChange={props.handlePositioning} type="text" list="types">
+                    <option selected="selected" value="%">%</option>
+                    <option value="px">px</option>
+                </select>
+            </div>
+        
         </div>
         );  
 };
@@ -142,6 +150,7 @@ const Canvas = (props) =>
     
     let backgroundImageCode = "";
     let backgroundPosCode = "";
+    const posType = props.data.positioning;
     
     if(props.data.linears.length > 0)
     {
@@ -150,7 +159,7 @@ const Canvas = (props) =>
             backgroundImageCode += "linear-gradient("+linear.direction+"deg, ";
             linear.lines.map( (line, lineIndex) => 
             {
-                backgroundImageCode += "transparent "+line.position+"%, "+line.color+" "+line.position+"%, "+line.color+" "+(+line.position + +line.size)+"%, transparent "+(+line.position + +line.size)+"%";
+                backgroundImageCode += "transparent "+line.position+posType+", "+line.color+" "+line.position+posType+", "+line.color+" "+(+line.position + +line.size)+posType+", transparent "+(+line.position + +line.size)+posType;
                 if(lineIndex < (linear.lines.length-1))
                 {
                     backgroundImageCode += ", ";
@@ -162,7 +171,7 @@ const Canvas = (props) =>
 
             })
 
-            backgroundPosCode += linear.posX+"px "+linear.posY+"px"
+            backgroundPosCode += linear.posX+posType+" "+linear.posY+posType;
             if(linearindex < (props.data.linears.length-1))
             {
                 backgroundImageCode += ", ";
@@ -232,6 +241,7 @@ class App extends React.Component
             code: "press button to generate",
             grid: true,
             repeat: true,
+            positioning: "%",
             linears: [],
             radials: []
         }
@@ -245,6 +255,7 @@ class App extends React.Component
         this.handleAddRadial = this.handleAddRadial.bind(this);
         this.handleShowGrid = this.handleShowGrid.bind(this);
         this.handleRepeat = this.handleRepeat.bind(this);
+        this.handlePositioning = this.handlePositioning.bind(this);
         
         this.handleAddLine = this.handleAddLine.bind(this);
         this.handleDeleteLine = this.handleDeleteLine.bind(this);
@@ -332,10 +343,8 @@ class App extends React.Component
         else
         {
             const length =  this.state.linears.length;
-            Object.assign(tempLinear,this.state.linears[length-1]);
-            
-            tempLinear.lines = [];
-            tempLinear.lines.push(tempLine);
+            tempLinear = JSON.parse(JSON.stringify(this.state.linears[length-1]));
+
         }
         
         
@@ -405,6 +414,11 @@ class App extends React.Component
         this.setState({bacgroundColor: event.target.value});
     }
     
+    handlePositioning(event)
+    {
+        this.setState({positioning: event.target.value});
+    }
+    
     render()
     {
         //Zrobić hierarchię
@@ -417,14 +431,15 @@ class App extends React.Component
 
                     <div id="control-panel">
                         <div className="control-section">
-                            <Controls handleChangeWidth={this.handleWidthInput} handleChangeHeight={this.handleHeightInput} inputWidth={this.state.width} inputHeight={this.state.height} handleChange={this.handleBackgroundInput} input={this.state.bacgroundColor} repeat={this.state.repeat} grid={this.state.grid} handleRepeat={this.handleRepeat} handleGrid={this.handleShowGrid}/>
-                            
-                            
-            
+                            <Controls handleChangeWidth={this.handleWidthInput} handleChangeHeight={this.handleHeightInput} inputWidth={this.state.width} inputHeight={this.state.height} handleChange={this.handleBackgroundInput} input={this.state.bacgroundColor} repeat={this.state.repeat} grid={this.state.grid} handleRepeat={this.handleRepeat} handleGrid={this.handleShowGrid} positioning={this.state.positioning} handlePositioning={this.handlePositioning}/>
+                        </div>
+                        <div className="control-section">
+                        
                             <div className="control-module">
                             <Buttons addLinear={this.handleAddLinear} addRadial={this.handleAddRadial}/>
                             
                             </div>
+                            
                         </div>
                         
                         <div className="control-section">
