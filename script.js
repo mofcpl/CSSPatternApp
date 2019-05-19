@@ -1,3 +1,22 @@
+//https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb/5624139
+function hexToRgb(hex,a) {
+  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+    return r + r + g + g + b + b;
+  });
+
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+   const r = parseInt(result[1], 16);
+   const g = parseInt(result[2], 16);
+   const b = parseInt(result[3], 16);
+
+    
+    return "rgba(" + r + ", " + g + ", " + b + ", "+ a + ")";
+    
+}
+
+
 //MAIN CONTROL
 
 const Controls = (props) =>
@@ -79,8 +98,18 @@ const Line = (props) =>
         </div>
         
         <div className="control-triger">                                  
-        <div className="control-name">color</div>
-        <input onChange={ (e) => props.handleChange(props.index,index,"color",e)} value={props.linears.lines[index].color} type="color" />
+            <div className="control-name">color</div>
+            <input onChange={ (e) => props.handleChange(props.index,index,"color",e)} value={props.linears.lines[index].color} type="color" />
+        </div>
+
+        <div className="control-triger">                                  
+            <div className="control-name">opacity</div>
+            <input onChange={ (e) => props.handleChange(props.index,index,"opacity",e)} value={props.linears.lines[index].opacity}  type="number" />
+        </div>
+
+        <div className="control-triger">                                  
+            <div className="control-name">blur</div>
+            <input onChange={ (e) => props.handleChange(props.index,index,"blur",e)} value={props.linears.lines[index].blur}  type="number" />
         </div>
                                           
         <button onClick={ () => props.DeleteLine(props.index,index)}  className="control-button">-</button>
@@ -147,7 +176,8 @@ class Linears extends React.Component
 
 const Canvas = (props) =>
 {
-    
+
+    let linearGrid = "";
     let backgroundImageCode = "";
     let backgroundPosCode = "";
     const posType = props.data.positioning;
@@ -159,7 +189,8 @@ const Canvas = (props) =>
             backgroundImageCode += "linear-gradient("+linear.direction+"deg, ";
             linear.lines.map( (line, lineIndex) => 
             {
-                backgroundImageCode += "transparent "+line.position+posType+", "+line.color+" "+line.position+posType+", "+line.color+" "+(+line.position + +line.size)+posType+", transparent "+(+line.position + +line.size)+posType;
+                const color = hexToRgb(line.color,line.opacity/100);
+                backgroundImageCode += "transparent "+(+line.position - +line.blur)+posType+", "+color+" "+line.position+posType+", "+color+" "+(+line.position + +line.size)+posType+", transparent "+(+line.position + +line.size + +line.blur)+posType;
                 if(lineIndex < (linear.lines.length-1))
                 {
                     backgroundImageCode += ", ";
@@ -168,6 +199,8 @@ const Canvas = (props) =>
                 {
                     backgroundImageCode += ") ";
                 }
+                
+
 
             })
 
@@ -192,14 +225,14 @@ const Canvas = (props) =>
         repeat = "no-repeat";
     }
     
+
+    
     let CanvasStyle = {backgroundImage: backgroundImageCode, backgroundPosition: backgroundPosCode, backgroundColor: props.data.bacgroundColor, backgroundSize: props.data.width+"px "+props.data.height+"px", backgroundRepeat: repeat};
-    //console.log(CanvasStyle);
     let AreaStyle = 
     { 
-        background: "linear-gradient(90deg,transparent "+(props.data.width-1)+"px,  rgba(0,0,0,1) "+(props.data.width)+"px), linear-gradient(180deg,transparent "+(props.data.height-1)+"px,  rgba(0,0,0,1) "+(props.data.height)+"px)",
+        backgroundImage: "linear-gradient(90deg,transparent "+(props.data.width-1)+"px,  rgba(0,0,0,1) "+(props.data.width)+"px), linear-gradient(180deg,transparent "+(props.data.height-1)+"px,  rgba(0,0,0,1) "+(props.data.height)+"px)",
         backgroundSize: props.data.width+"px "+props.data.height+"px",    
     }; 
-    
     
     
     if ((props.data.width > 0 && props.data.height > 0) && props.data.grid == true)
@@ -287,6 +320,8 @@ class App extends React.Component
                 case "position": {newLinears[LinearIndex].lines[LineIndex].position = event.target.value; break;}
                 case "size": {newLinears[LinearIndex].lines[LineIndex].size = event.target.value; break;}
                 case "color": {newLinears[LinearIndex].lines[LineIndex].color = event.target.value; break;}
+                case "opacity": {newLinears[LinearIndex].lines[LineIndex].opacity = event.target.value; break;}
+                case "blur": {newLinears[LinearIndex].lines[LineIndex].blur = event.target.value; break;}
             }
         
         this.setState({linears: newLinears});
@@ -332,7 +367,7 @@ class App extends React.Component
     {
         let tempLine = {};
         let tempLinear = {};
-        tempLine = {position: 0, color: "#000000", size: 5};
+        tempLine = {position: 0, color: "#000000", size: 5, opacity: 100, blur: 0};
         
         if(this.state.linears.length == 0)
         {
