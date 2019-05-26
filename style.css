@@ -50,7 +50,6 @@ body
 {
     width: 100vw;
     height: 100vh;
-    font-size: 0.8vw;
     font-family: 'Ubuntu', sans-serif;
     background-image: linear-gradient(90deg, white);
     display: grid;
@@ -131,11 +130,10 @@ body
 
 #control-panel 
 {
-    height: 100%;
-    width: 50%;
     margin-left: 2%;
     padding: 10px 10px 10px 10px;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #app
@@ -156,9 +154,7 @@ body
 .control-section 
 {
     display: flex;
-    flex-wrap: wrap;
     background-color: #e0e4eb;
-    
 }
 
 .control-lines
@@ -171,10 +167,10 @@ body
 .control-module
 {
     
-    padding: 10px 10px 10px 10px;
-    height: 50px;
+    padding: 0px 10px 0px 10px;
     margin: 5px;
     display: flex;
+        flex-wrap: wrap;
     align-items: center;
 
 
@@ -233,6 +229,40 @@ body
     transform: scale(0.95);
 }
 
+.dropdown 
+{
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content 
+{
+    display: none;
+    position: fixed;
+    overflow-y: scroll;
+    height: 500px;
+
+}
+
+.dropdown-content button 
+{
+    text-decoration: none;
+    display: block;
+    width: 250px;
+    height: 250px;
+    background-color: #e0e4eb;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+}
+
+.dropdown-content button
+{
+    
+}
+
+.dropdown:hover .dropdown-content {display: block;}
 
 .control-module input[type=number]
 {

@@ -76,6 +76,15 @@ const Buttons = (props) =>
         <div className="control-triger">
             <button onClick={props.addLinear} className="control-button">add linear</button>
             <button onClick={props.addRadial} className="control-button">add radial</button>
+            <div className="dropdown">
+                <button className="control-button">examples</button>
+                <div className="dropdown-content">
+                    <button onClick={props.setWeaves}><img src="weaves.png"/></button>
+                    <button onClick={props.setCarbon}><img src="carbon.png"/></button>
+                    <button></button>
+                    <button></button>
+                </div>
+            </div>
         </div>
     );
 }
@@ -294,6 +303,9 @@ class App extends React.Component
         this.handleDeleteLine = this.handleDeleteLine.bind(this);
         this.handleChangeInput = this.handleChangeInput.bind(this);
         
+        this.handleSetWeaves = this.handleSetWeaves.bind(this);
+        this.handleSetCarbon = this.handleSetCarbon.bind(this);
+        
         /*
         
         this.handleLinearPositionVecrtical = this.handleLinearPositionVecrtical.bind(this,LinearIndex);
@@ -306,6 +318,153 @@ class App extends React.Component
         */
         
         
+    }
+    
+    handleSetCarbon()
+    {
+        const tempLinears = [{
+            direction: 27,
+            posX: 0,
+            posY: 5,
+            lines: [
+                {
+                    position: 0,
+                    color: "#151515",
+                    size: 5,
+                    opacity: 100,
+                    blur: 0
+                }
+            ]},
+            {
+            direction: 207,
+            posX: 10,
+            posY: 0,
+            lines: [
+                {
+                    position: 0,
+                    color: "#151515",
+                    size: 5,
+                    opacity: 100,
+                    blur: 0
+                }
+            ]},
+            {
+            direction: 27,
+            posX: 0,
+            posY: 10,
+            lines: [
+                {
+                    position: 0,
+                    color: "#222222",
+                    size: 5,
+                    opacity: 100,
+                    blur: 0
+                }
+            ]},
+            {
+            direction: 207,
+            posX: 10,
+            posY: 5,
+            lines: [
+                {
+                    position: 0,
+                    color: "#222222",
+                    size: 5,
+                    opacity: 100,
+                    blur: 0
+                }
+            ]},
+            {
+            direction: 90,
+            posX: 0,
+            posY: 0,
+            lines: [
+                {
+                    position: 0,
+                    color: "#1b1b1b",
+                    size: 10,
+                    opacity: 100,
+                    blur: 0
+                }
+            ]},
+            {
+            direction: 180,
+            posX: 0,
+            posY: 0,
+            lines: [
+                {
+                    position: 0,
+                    color: "#1d1d1d",
+                    size: 5,
+                    opacity: 100,
+                    blur: 0
+                },
+                {
+                    position: 5,
+                    color: "#1a1a1a",
+                    size: 5,
+                    opacity: 100,
+                    blur: 0
+                },
+                {
+                    position: 15,
+                    color: "#242424",
+                    size: 5,
+                    opacity: 100,
+                    blur: 0
+                }
+            ]}
+            ];
+            this.setState({linears: tempLinears, width: 20, height: 20, positioning: "px", bacgroundColor: "#131313"});
+    }
+    
+    handleSetWeaves()
+    {
+        const tempLinears = [{
+            direction: 135,
+            posX: 0,
+            posY: 0,
+            lines: [
+                {
+                    position: 22,
+                    color: "#d9ecff",
+                    size: 1,
+                    opacity: 100,
+                    blur: 1
+                },
+                {
+                    position: 67,
+                    color: "#d9ecff",
+                    size: 1,
+                    opacity: 100,
+                    blur: 1
+                }
+            ]
+            
+        },
+        {
+            direction: 225,
+            posX: 0,
+            posY: 64,
+            lines: [
+                {
+                    position: 22,
+                    color: "#d9ecff",
+                    size: 1,
+                    opacity: 100,
+                    blur: 1
+                },
+                {
+                    position: 67,
+                    color: "#d9ecff",
+                    size: 1,
+                    opacity: 100,
+                    blur: 1
+                }
+            ]
+        }];
+        
+        this.setState({linears: tempLinears, width: 64, height: 128, positioning: "px", bacgroundColor: "#708090"});
     }
     
     handleChangeInput(LinearIndex,LineIndex,inputName)
@@ -471,7 +630,7 @@ class App extends React.Component
                         <div className="control-section">
                         
                             <div className="control-module">
-                            <Buttons addLinear={this.handleAddLinear} addRadial={this.handleAddRadial}/>
+                            <Buttons addLinear={this.handleAddLinear} addRadial={this.handleAddRadial} setWeaves={this.handleSetWeaves} setCarbon={this.handleSetCarbon}/>
                             
                             </div>
                             
