@@ -58,6 +58,11 @@ const Controls = (props) =>
                     <option value="px">px</option>
                 </select>
             </div>
+            <div className="control-triger">
+                <div className="control-name">zoom</div>
+
+                <input value={props.zoom} onChange={props.handleZoom} type="range"  min="0.5" max="10.0" step="0.01" />
+            </div>
         
         </div>
         );  
@@ -183,9 +188,101 @@ class Linears extends React.Component
 
 
 
-const Canvas = (props) =>
+const Preview = (props) =>
 {
 
+    let linearGrid = "";
+    let backgroundImageCode = "";
+    let backgroundPosCode = "";
+    const posType = props.data.positioning;
+    
+    if(props.data.linears.length > 0)
+    {
+        props.data.linears.map( (linear, linearindex) =>
+        {
+            backgroundImageCode += "linear-gradient("+linear.direction+"deg, ";
+            linear.lines.map( (line, lineIndex) => 
+            {
+                const color = hexToRgb(line.color,line.opacity/100);
+                if(props.data.positioning == "%") 
+                {
+                    backgroundImageCode += "transparent "+(+line.position - +line.blur)+posType+", "+color+" "+line.position+posType+", "+color+" "+(+line.position + +line.size)+posType+", transparent "+(+line.position + +line.size + +line.blur)+posType;
+                }
+                else if(props.data.positioning == "px") 
+                {
+                    let position = line.position * props.data.zoom;
+                    let size = line.size * props.data.zoom;
+                    
+                    backgroundImageCode += "transparent "+(+position - +line.blur)+posType+", "+color+" "+position+posType+", "+color+" "+(+position + +size)+posType+", transparent "+(+position + +size + +line.blur)+posType;
+                }
+                if(lineIndex < (linear.lines.length-1))
+                {
+                    backgroundImageCode += ", ";
+                }
+                else
+                {
+                    backgroundImageCode += ") ";
+                }
+                
+
+
+            })
+            
+            if(props.data.positioning == "%")
+            {
+                backgroundPosCode += linear.posX+posType+" "+linear.posY+posType;
+            }
+            else
+            {
+                backgroundPosCode += (+linear.posX * +props.data.zoom)+posType+" "+ (+linear.posY * +props.data.zoom)+posType;
+            }
+            
+            if(linearindex < (props.data.linears.length-1))
+            {
+                backgroundImageCode += ", ";
+                backgroundPosCode += ", ";
+            }
+
+        })
+    }
+    
+    let repeat = true;
+    
+    if(props.data.repeat == true)
+    {
+        repeat = "repeat";
+    }
+    else
+    {
+        repeat = "no-repeat";
+    }
+    
+
+    
+    let CanvasStyle = {backgroundImage: backgroundImageCode, backgroundPosition: backgroundPosCode, backgroundColor: props.data.bacgroundColor, backgroundSize: (+props.data.width * +props.data.zoom)+"px "+ (+props.data.height * +props.data.zoom)+"px", backgroundRepeat: repeat};
+    let AreaStyle = 
+    { 
+        backgroundImage: "linear-gradient(90deg,transparent "+(+props.data.width * +props.data.zoom - 1)+"px,  rgba(0,0,0,1) "+(+props.data.width * +props.data.zoom)+"px), linear-gradient(180deg,transparent "+(+props.data.height * +props.data.zoom - 1)+"px,  rgba(0,0,0,1) "+(+props.data.height * +props.data.zoom)+"px)",
+        backgroundSize: (+props.data.width * +props.data.zoom)+"px "+ (+props.data.height * +props.data.zoom)+"px",    
+    }; 
+    
+    
+    if ((props.data.width > 0 && props.data.height > 0) && props.data.grid == true)
+    return(
+        <div id="preview" style={CanvasStyle}>
+             <div id="primary-area" style={AreaStyle}></div>     
+        </div>
+    )
+    else return(
+        <div id="preview" style={CanvasStyle}>
+             
+        </div>
+    );
+}
+
+
+const Canvas = (props) =>
+{
     let linearGrid = "";
     let backgroundImageCode = "";
     let backgroundPosCode = "";
@@ -237,24 +334,8 @@ const Canvas = (props) =>
 
     
     let CanvasStyle = {backgroundImage: backgroundImageCode, backgroundPosition: backgroundPosCode, backgroundColor: props.data.bacgroundColor, backgroundSize: props.data.width+"px "+props.data.height+"px", backgroundRepeat: repeat};
-    let AreaStyle = 
-    { 
-        backgroundImage: "linear-gradient(90deg,transparent "+(props.data.width-1)+"px,  rgba(0,0,0,1) "+(props.data.width)+"px), linear-gradient(180deg,transparent "+(props.data.height-1)+"px,  rgba(0,0,0,1) "+(props.data.height)+"px)",
-        backgroundSize: props.data.width+"px "+props.data.height+"px",    
-    }; 
     
-    
-    if ((props.data.width > 0 && props.data.height > 0) && props.data.grid == true)
-    return(
-        <div id="canvas" style={CanvasStyle}>
-             <div id="primary-area" style={AreaStyle}></div>     
-        </div>
-    )
-    else return(
-        <div id="canvas" style={CanvasStyle}>
-             
-        </div>
-    );
+    return(<div id="canvas" style={CanvasStyle}></div>);
 }
 
 const Code = (props) =>
@@ -280,6 +361,7 @@ class App extends React.Component
             bacgroundColor: "#ffffff",
             width: 100,
             height: 100,
+            zoom: 1.0,
             code: "press button to generate",
             grid: true,
             repeat: true,
@@ -298,6 +380,7 @@ class App extends React.Component
         this.handleShowGrid = this.handleShowGrid.bind(this);
         this.handleRepeat = this.handleRepeat.bind(this);
         this.handlePositioning = this.handlePositioning.bind(this);
+        this.handleZoom = this.handleZoom.bind(this);
         
         this.handleAddLine = this.handleAddLine.bind(this);
         this.handleDeleteLine = this.handleDeleteLine.bind(this);
@@ -585,6 +668,11 @@ class App extends React.Component
             }
     }
     
+    handleZoom(event)
+    {
+        this.setState({zoom: event.target.value});
+    }
+    
     handleWidthInput(event)
     {
         this.setState({width: event.target.value});
@@ -621,11 +709,12 @@ class App extends React.Component
             <div>
                 <div id="app">
 
+                    <Preview data={this.state} />
                     <Canvas data={this.state} />
 
                     <div id="control-panel">
                         <div className="control-section">
-                            <Controls handleChangeWidth={this.handleWidthInput} handleChangeHeight={this.handleHeightInput} inputWidth={this.state.width} inputHeight={this.state.height} handleChange={this.handleBackgroundInput} input={this.state.bacgroundColor} repeat={this.state.repeat} grid={this.state.grid} handleRepeat={this.handleRepeat} handleGrid={this.handleShowGrid} positioning={this.state.positioning} handlePositioning={this.handlePositioning}/>
+                            <Controls handleChangeWidth={this.handleWidthInput} handleChangeHeight={this.handleHeightInput} inputWidth={this.state.width} inputHeight={this.state.height} handleChange={this.handleBackgroundInput} input={this.state.bacgroundColor} repeat={this.state.repeat} grid={this.state.grid} handleRepeat={this.handleRepeat} handleGrid={this.handleShowGrid} positioning={this.state.positioning} handlePositioning={this.handlePositioning} handleZoom={this.handleZoom} zoom={this.state.zoom}/>
                         </div>
                         <div className="control-section">
                         

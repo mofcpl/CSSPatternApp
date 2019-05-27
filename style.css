@@ -121,7 +121,7 @@ body
     grid-area: aps;
 }
 
-#canvas /* Obszar gdzie generowany jest wzór */
+#preview /* Obszar gdzie generowany jest wzór */
 {
     height: 100%;
     width: 40%;
