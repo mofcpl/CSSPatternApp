@@ -132,6 +132,7 @@ body
 {
     margin-left: 2%;
     padding: 10px 10px 10px 10px;
+    margin-right: 10px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -170,15 +171,24 @@ body
     padding: 0px 10px 0px 10px;
     margin: 5px;
     display: flex;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
     align-items: center;
-
-
 }
 
 .control-lines .control-module
 {
     border: 0;
+    background-color: #e0e7eb;
+}
+
+.control-module-main
+{
+    background-color: #c1cfd7;
+    padding: 0px 10px 0px 10px;
+    margin: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .control-triger
@@ -238,7 +248,7 @@ body
 .dropdown-content 
 {
     display: none;
-    position: fixed;
+    position: absolute;
     overflow-y: scroll;
     height: 500px;
 
@@ -285,10 +295,19 @@ body
     cursor: pointer;
 }
 
+.control-module input[type=range]
+{
+    background-color: #839faf;
+    width: 100px;
+    
+}
+
 .control-module input[type=color]:hover
 {
     background-color: #839faf;
 }
+
+
 
 
 
