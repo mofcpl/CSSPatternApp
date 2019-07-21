@@ -1,19 +1,73 @@
+
+
+
 //https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb/5624139
-function hexToRgb(hex,a) {
-  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-  hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-    return r + r + g + g + b + b;
-  });
+function hexToRgb(hex) 
+{
+      // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) 
+    {
+        return r + r + g + g + b + b;
+    });
 
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-   const r = parseInt(result[1], 16);
-   const g = parseInt(result[2], 16);
-   const b = parseInt(result[3], 16);
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    const r = parseInt(result[1], 16);
+    const g = parseInt(result[2], 16);
+    const b = parseInt(result[3], 16);
 
+    const rgb = [r,g,b];
+
+    return rgb;
     
-    return "rgba(" + r + ", " + g + ", " + b + ", "+ a + ")";
+}
+
+const Logo = (props) =>
+{
+    return(   
+        <div className="area" id="logo">
+            <div className="card">
+                <div><span>CSS</span>PatternApp</div>
+            </div>
+        </div>
+    );
+}
+
+const Links = (props) =>
+{
+    return(   
+        <div className="area" id="links">
+            <div className="card">
+
+            </div>
+        </div>
+    );
+}
+
+const Ads = (props) =>
+{
+    return(   
+        <div className="area" id="ads">
+
+                <div>Option 1</div>
+                <div>Option 2</div>
+                <div>Option 3</div>
+                <div>Option 4</div>
+                <div>Option 5</div>
     
+        </div>
+    );
+}
+
+const Footer = (props) =>
+{
+    return(   
+        <div className="area" id="footer">
+            <div>CSSPatternApp® All rights reserved</div>
+            <div>bla bla bla</div>
+            <div>contact@csspatternapp.com</div>
+        </div>
+    );
 }
 
 ////////////////////////////////////////////////////////////////////////MAIN CONTROL/////////////////////////////////////////////////////////////////////////
@@ -30,7 +84,7 @@ const Controls = (props) =>
     const zoom = props.data.zoom;
     
     return(
-        <div className="control-module">
+        <div id="moduleA">
             <div className="control-triger">
                 <div className="control-name">background</div>
                 <input 
@@ -78,14 +132,14 @@ const Controls = (props) =>
 
 
 
-////////////////////////////////////////////////////////////////////////BUTTONS//////////////////////////////////////////////////////////////////////////////
+
 
 const Buttons = (props) =>
 {
     
     return(
         
-        <div className="control-triger">
+        <div id="moduleB">
             <button onClick={props.addLinear} className="control-button">add linear</button>
             <button onClick={props.addRadial} className="control-button">add radial</button>
             <div className="dropdown">
@@ -104,112 +158,177 @@ const Buttons = (props) =>
     );
 }
 
+const MainProp = (props) =>
+{
+    return(   
+        <div className="area" id="main-prop">
+            <div className="card">
+                    <Controls 
+                        data={props.data} 
+                        handleChangeWidth={props.pointer.handleWidthInput} 
+                        handleChangeHeight={props.pointer.handleHeightInput} 
+                        handleChange={props.pointer.handleBackgroundInput} 
+                        handleRepeat={props.pointer.handleRepeat} 
+                        handleGrid={props.pointer.handleShowGrid} 
+                        handlePositioning={props.pointer.handlePositioning} 
+                        handleZoom={props.pointer.handleZoom} 
+                    />
+                        
+                    <Buttons 
+                        addLinear={props.pointer.handleAddLinear} 
+                        addRadial={props.pointer.handleAddRadial} 
+                        setHearts={props.pointer.handleSetHearts} 
+                        setBricks={props.pointer.handleSetBricks} 
+                        setStairs={props.pointer.handleSetStairs} 
+                        setShippo={props.pointer.handleSetShippo} 
+                        setMicrobial={props.pointer.handleSetMicrobial} 
+                        setWeaves={props.pointer.handleSetWeaves} 
+                        setCarbon={props.pointer.handleSetCarbon}
+                    />
+            </div>
+        </div>
+    );
+}
+
+////////////////////////////////////////////////////////////////////////LIST/////////////////////////////////////////////////////////////////////////////////
+
+const List = (props) =>
+{
+    
+    const linears = props.data.linears;
+    const radials = props.data.radials;
+    const activeType = props.data.selected.type;
+    const activeIndex = props.data.selected.index;
+    
+    const itemsLinears = linears.map((value,index) => 
+            <div key={index} className={(activeType == "linear" && activeIndex == index) ? "list-item-active" : "list-item"}>
+                <button 
+                    onClick={ (e) => props.handleChangeLayer("linear",index)} 
+                    className="text">Linear {index}
+                </button>
+                <button onClick={ (e) => props.handleVisibility("linear",index)}  className={(value.visible == true) ? "eye-icon-active" : "eye-icon"}><i className="icon-eye"></i></button>
+                <button onClick={ (e) => props.handleGrid("linear",index)}  className={(value.grid == true) ? "grid-icon-active" : "grid-icon"}><i className="icon-grid"></i></button>
+            </div>
+    );
+
+    const itemsRadials = radials.map((value,index) => 
+        <div key={index} className={(activeType == "radial" && activeIndex == index) ? "list-item-active" : "list-item"}>
+            <button 
+                onClick={ (e) => props.handleChangeLayer("radial",index)} 
+                className="text">Radial {index}
+            </button>
+            <button onClick={ (e) => props.handleVisibility("radial",index)} className={(value.visible == true) ? "eye-icon-active" : "eye-icon"}><i className="icon-eye"></i></button>
+            <button onClick={ (e) => props.handleGrid("radial",index)} className={(value.grid == true) ? "grid-icon-active" : "grid-icon"}><i className="icon-grid"></i></button>
+        </div>
+    );
+    
+    return(
+    <div className="area" id="list">
+        <div className="card">
+            {itemsLinears}
+            {itemsRadials}
+        </div>
+    </div>
+    );
+}
+
 ////////////////////////////////////////////////////////////////////////LINEARS//////////////////////////////////////////////////////////////////////////////
 
 const Line = (props) =>
 {
-
-    const items = props.linears.lines.map((value,index) => 
+    
+    const line = props.data.linears[props.index].lines;
+    
+    
+    const items = props.data.linears[props.index].lines.map((value,index) => 
     <div className="control-module" key={index}>
         <div className="control-triger">
             <div className="control-name">position</div>
-            <input onChange={ (e) => props.handleChange("linear",props.index,index,"position",e)} value={props.linears.lines[index].position} type="number" min="0" />
+            <input onChange={ (e) => props.handleChange("linear",props.index,index,"position",e)} value={line[index].position} type="number" min="0" />
         </div>
         
         <div className="control-triger">
             <div className="control-name">size</div>
-            <input onChange={ (e) => props.handleChange("linear",props.index,index,"size",e)} value={props.linears.lines[index].size} type="number" min="1" />
+            <input onChange={ (e) => props.handleChange("linear",props.index,index,"size",e)} value={line[index].size} type="number" min="1" />
         </div>
         
         <div className="control-triger">                                  
             <div className="control-name">color</div>
-            <input onChange={ (e) => props.handleChange("linear",props.index,index,"color",e)} value={props.linears.lines[index].color} type="color" />
+            <input onChange={ (e) => props.handleChange("linear",props.index,index,"color",e)} value={line[index].color} type="color" />
         </div>
 
         <div className="control-triger">                                  
             <div className="control-name">opacity</div>
-            <input onChange={ (e) => props.handleChange("linear",props.index,index,"opacity",e)} value={props.linears.lines[index].opacity}  type="number" min="0" max="100" />
+            <input onChange={ (e) => props.handleChange("linear",props.index,index,"opacity",e)} value={line[index].opacity}  type="number" min="0" max="100" />
         </div>
 
         <div className="control-triger">                                  
             <div className="control-name">blur</div>
-            <input onChange={ (e) => props.handleChange("linear",props.index,index,"blur",e)} value={props.linears.lines[index].blur}  type="number" min="0" />
+            <input onChange={ (e) => props.handleChange("linear",props.index,index,"blur",e)} value={line[index].blur}  type="number" min="0" />
         </div>
                                           
-        <button onClick={ () => props.DeleteLine(props.index,index)}  className="control-button">delete</button>
+        <button onClick={ () => props.delete(props.index,index)}  className="control-button">delete</button>
     </div>);
-                                  
-    return(
-            <div>
-                {items}
-            </div>
-            )
+    
+    return items;
 }
 
-
-
-class Linears extends React.Component
-{
-    constructor(props)
-    {
-        super(props);
-        
-    }
+const Linear = (props) =>
+{  
+    const index = props.index;
+    const linears = props.data.linears;
+    const width = props.data.width;
+    const height = props.data.height;
     
-    render()
-    {
-                const linears = this.props.data.linears;
-                const width = this.props.data.width;
-                const height = this.props.data.height;
-                
-        
-                const temp = linears.map((value,index) => 
-                                    <div className="control-lines" key={index}>
-                                            <div className="control-module-main">
-                                                <div className="control-triger">    
-                                                    <div className="control-name">direction</div>
-                                                    <input type="number" onChange={ (e) => this.props.handleChange("linear",index,0,"direction",e)} value={linears[index].direction}  min="0" max="360"/>
-                                                </div>
+    return(
+        <div className="control-module">
+            
+                <div className="control-triger">    
+                    <div className="control-name">direction</div>
+                    <input type="number" onChange={ (e) => props.handleChange("linear",index,0,"direction",e)} value={linears[index].direction}  min="0" max="360"/>
+                </div>
 
-                                                <div className="control-triger">    
-                                                    <div className="control-name">vertical shift(px)</div>
-                                                    <input onChange={ (e) => this.props.handleChange("linear",index,0,"vertical",e)} value={linears[index].vertical} type="number" min={0-width} max={width} />
-                                                </div>
+                <div className="control-triger">
+                    <div className="control-name">auto-size</div>
+                    <input type="checkbox" onChange={ (e) => props.handleChange("linear",index,0,"auto-size",e)} checked={linears[index].autoSize}/>
+                </div>
 
-                                                <div className="control-triger">
-                                                    <div className="control-name">horizontal shift(px)</div>
-                                                    <input onChange={ (e) => this.props.handleChange("linear",index,0,"horizontal",e)} value={linears[index].horizontal} type="number" min={0-height} max={height}/>
-                                                </div>
-                                                <button onClick={ () => this.props.AddLine(index) } className="control-button">add line</button>
-                                            </div>
-                                            
-                                        
-                                            <Line handleChange={this.props.handleChange} index={index} DeleteLine={this.props.DeleteLine} linears={linears[index]} />
-                                        
-                                        
-    
-                                    </div>
-                                    );
-                                       
-        
-        return(
-            <div >
-                {temp}
-            </div>
-        )
-    }
+                <div className="control-triger">
+                    <div className="control-name">width</div>
+
+                    <input min="2" type="number" onChange={ (e) => props.handleChange("linear",index,0,"width",e)} value={linears[index].width} disabled = {(linears[index].autoSize == true)? "disabled" : ""}/>
+                </div>
+                <div className="control-triger">
+                    <div className="control-name">height</div>
+
+                    <input min="2" type="number" onChange={ (e) => props.handleChange("linear",index,0,"height",e)} value={linears[index].height} disabled = {(linears[index].autoSize == true)? "disabled" : ""}/>
+                </div>
+
+                <div className="control-triger">    
+                    <div className="control-name">vertical shift(px)</div>
+                    <input onChange={ (e) => props.handleChange("linear",index,0,"vertical",e)} value={linears[index].vertical} type="number" min={0-width} max={width} />
+                </div>
+
+                <div className="control-triger">
+                    <div className="control-name">horizontal shift(px)</div>
+                    <input onChange={ (e) => props.handleChange("linear",index,0,"horizontal",e)} value={linears[index].horizontal} type="number" min={0-height} max={height}/>
+                </div>
+                <button onClick={ () => props.add(index) } className="control-button">add line</button>
+                                                                                   
+                               
+        </div>
+    );
 }
 
 ////////////////////////////////////////////////////////////////////////RADIALS//////////////////////////////////////////////////////////////////////////////
 
 const Radius = (props) =>
 {
-
-    const radius = props.radials.rays;
+    
+    const radius = props.data.radials[props.index].rays;
     
     
-    
-    const items = radius.map((value,index) => 
+    const items = props.data.radials[props.index].rays.map((value,index) => 
     <div className="control-module" key={index}>
         <div className="control-triger">
             <div className="control-name">position</div>
@@ -236,102 +355,130 @@ const Radius = (props) =>
             <input onChange={ (e) => props.handleChange("radial",props.index,index,"blur",e)} value={radius[index].blur}  type="number" min="0" />
         </div>
                                           
-        <button onClick={ () => props.deleteRadius(props.index,index)}  className="control-button">delete</button>
+        <button onClick={ () => props.delete(props.index,index)}  className="control-button">delete</button>
     </div>);
-                                  
+    
+    return items;
+}
+
+const Radial = (props) =>
+{  
+    const index = props.index;
+    const radials = props.data.radials;
+    const width = props.data.width;
+    const height = props.data.height;
+
     return(
-            <div>
-                {items}
-            </div>
-            )
-}
-
-
-
-class Radials extends React.Component
-{
-    constructor(props)
-    {
-        super(props);
-        
-    }
-    
-    render()
-    {
-                const radials = this.props.data.radials;
-                const width = this.props.data.width;
-                const height = this.props.data.height;
-                
-                const temp = radials.map((value,index) => 
-                                    <div className="control-lines" key={index}>
-                                            <div className="control-module-main">
+            <div className="control-module">
                                                 
-                                                <div className="control-triger">
-                                                    <div className="control-name">shape</div>
-                                                    <select  type="text" list="types" value={radials[index].shape} onChange={ (e) => this.props.handleChange("radial",index,0,"shape",e)}>
-                                                        <option value="ellipse ">ellipse</option>
-                                                        <option value="circle">circle</option>
-                                                    </select>
-                                                </div>
-                                         
-                                                <div className="control-triger">
-                                                    <div className="control-name">size</div>
-                                                    <select  type="text" list="types" value={radials[index].size} onChange={ (e) => this.props.handleChange("radial",index,0,"extent",e)}>
-                                                        <option value="farthest-corner">farthest corner</option>
-                                                        <option value="closest-side">closest side</option>
-                                                        <option value="closest-corner">closest corner</option>
-                                                        <option value="farthest-side">farthest side</option>
-                                                    </select>
-                                                </div>
-                                         
-                                                <div className="control-triger">    
-                                                    <div className="control-name">pos x</div>
-                                                    <input onChange={ (e) => this.props.handleChange("radial",index,0,"posx",e)} value={radials[index].posx} type="number" min={0-width} max={width} />
-                                                </div>
-                        
-                                                <div className="control-triger">    
-                                                    <div className="control-name">pos y</div>
-                                                    <input onChange={ (e) => this.props.handleChange("radial",index,0,"posy",e)} value={radials[index].posy} type="number" min={0-width} max={width} />
-                                                </div>
-                                         
-                                                <div className="control-triger">    
-                                                    <div className="control-name">vertical shift(px)</div>
-                                                    <input onChange={ (e) => this.props.handleChange("radial",index,0,"vertical",e)} value={radials[index].vertical} type="number" min={0-width} max={width} />
-                                                </div>
+                <div className="control-triger">
+                    <div className="control-name">shape</div>
+                    <select  type="text" list="types" value={radials[index].shape} onChange={ (e) => props.handleChange("radial",index,0,"shape",e)}>
+                        <option value="ellipse ">ellipse</option>
+                        <option value="circle">circle</option>
+                    </select>
+                </div>
 
-                                                <div className="control-triger">
-                                                    <div className="control-name">horizontal shift(px)</div>
-                                                    <input onChange={ (e) => this.props.handleChange("radial",index,0,"horizontal",e)} value={radials[index].horizontal} type="number" min={0-height} max={height}/>
-                                                </div>
-                                                <button onClick={ () => this.props.addRadius(index) } className="control-button">add radius</button>
-                                            </div>
-                                            
-                                        
-                                            <Radius handleChange={this.props.handleChange} index={index} deleteRadius={this.props.deleteRadius} radials={radials[index]} />
-                                        
-                                        
-    
-                                    </div>
-                                    );
-                                       
-        
-        return(
-            <div >
-                {temp}
+                <div className="control-triger">
+                    <div className="control-name">auto-size</div>
+                    <input type="checkbox" onChange={ (e) => props.handleChange("radial",index,0,"auto-size",e)} checked={radials[index].autoSize}/>
+                </div>
+
+                <div className="control-triger">
+                    <div className="control-name">width</div>
+
+                    <input min="2" type="number" onChange={ (e) => props.handleChange("radial",index,0,"width",e)} value={radials[index].width} disabled = {(radials[index].autoSize == true)? "disabled" : ""}/>
+                </div>
+                <div className="control-triger">
+                    <div className="control-name">height</div>
+
+                    <input min="2" type="number" onChange={ (e) => props.handleChange("radial",index,0,"height",e)} value={radials[index].height} disabled = {(radials[index].autoSize == true)? "disabled" : ""}/>
+                </div>
+                                         
+                <div className="control-triger">
+                    <div className="control-name">size</div>
+                        <select  type="text" list="types" value={radials[index].size} onChange={ (e) => props.handleChange("radial",index,0,"extent",e)}>
+                            <option value="farthest-corner">farthest corner</option>
+                            <option value="closest-side">closest side</option>
+                            <option value="closest-corner">closest corner</option>
+                            <option value="farthest-side">farthest side</option>
+                        </select>
+                    </div>
+                                         
+                <div className="control-triger">    
+                    <div className="control-name">pos x</div>
+                    <input onChange={ (e) => props.handleChange("radial",index,0,"posx",e)} value={radials[index].posx} type="number" min={0-width} max={width} />
+                </div>
+                        
+                <div className="control-triger">    
+                    <div className="control-name">pos y</div>
+                    <input onChange={ (e) => props.handleChange("radial",index,0,"posy",e)} value={radials[index].posy} type="number" min={0-width} max={width} />
+                </div>
+                                         
+                <div className="control-triger">    
+                    <div className="control-name">vertical shift(px)</div>
+                    <input onChange={ (e) => props.handleChange("radial",index,0,"vertical",e)} value={radials[index].vertical} type="number" min={0-width} max={width} />
+                </div>
+
+                <div className="control-triger">
+                    <div className="control-name">horizontal shift(px)</div>
+                    <input onChange={ (e) => props.handleChange("radial",index,0,"horizontal",e)} value={radials[index].horizontal} type="number" min={0-height} max={height}/>
+                </div>
+                    <button onClick={ () => props.add(index) } className="control-button">add radius</button>
+            
             </div>
+ 
         )
-    }
 }
 
-////////////////////////////////////////////////////////////////////////CANVAS AND PREVIEW///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////PROPERTIES///////////////////////////////////////////////////////////////////////////
+
+const Properties = (props) =>
+{
+    let card;
+    
+    switch(props.data.selected.type)
+        {
+            case "linear": 
+                {
+                    card = 
+                        <div className="card">
+                            <Linear handleChange={props.handleChange} data={props.data} index={props.data.selected.index} add={props.addLine}/>
+                            <Line handleChange={props.handleChange} data={props.data} index={props.data.selected.index} delete={props.deleteLine}/>
+                        </div>
+                    break;
+                }
+            case "radial": 
+                {
+                    card = 
+                        <div className="card">
+                            <Radial handleChange={props.handleChange} data={props.data} index={props.data.selected.index} add={props.addRadius}/>
+                            <Radius handleChange={props.handleChange} data={props.data} index={props.data.selected.index} delete={props.deleteRadius}/>
+                        </div>
+                    break;
+                }
+            case "none":
+                {
+                    card = <div className="card"></div>;
+                    break;
+                }
+        }
+    
+    
+    return(
+        <div className="area" id="prop">
+            {card}
+        </div>
+    );
+}
+
+
 
 const Preview = (props) =>
 {
 
-    let linearGrid = "";
-    let backgroundImageCode = "";
-    let backgroundPosCode = "";
     const posType = props.data.positioning;
+    let Layers = [];
     
     
 //LINEARS    
@@ -339,62 +486,67 @@ const Preview = (props) =>
     {
         props.data.linears.map( (linear, linearindex) =>
         {
-            backgroundImageCode += "linear-gradient("+linear.direction+"deg, ";
+            let backgroundImageCode = "";
+
+            
+            backgroundImageCode = "linear-gradient("+linear.direction+"deg, ";
             linear.lines.map( (line, lineIndex) => 
             {
-                             
-                const color = hexToRgb(line.color,line.opacity/100);
+                const colorArray = hexToRgb(line.color);
+                const rgbString = "rgba("+colorArray[0]+", "+colorArray[1]+", "+colorArray[2]+", "+line.opacity/100+")";
+                
                 if(props.data.positioning == "%") 
                 {        
-                    const vacancyLeft = "transparent "+(+line.position - +1 - +line.blur)+posType;
-                    const colorLeft = color+" "+line.position+posType;
-                    const colorRight = color+" "+(+line.position - +1 + +line.size)+posType;
+                    const vacancyLeft = "transparent "+(+line.position - +line.blur)+posType;
+                    const colorLeft = rgbString+" "+line.position+posType;
+                    const colorRight = rgbString+" "+(+line.position + +line.size)+posType;
                     const vacancyRight = "transparent "+(+line.position + +line.size + +line.blur)+posType;
                     
                     backgroundImageCode += vacancyLeft+", "+colorLeft+", "+colorRight+", "+vacancyRight;
                 }
-                else if(props.data.positioning == "px") 
+                else if(props.data.positioning == "px")
                 {
                     const position = line.position * props.data.zoom;
                     const size = line.size * props.data.zoom;
                     
-                    const vacancyLeft = "transparent "+(+position - +line.blur)+posType+", "+color;
-                    const colorLeft = color+" "+position+posType;
-                    const colorRight = color+" "+(+position + +size)+posType;
+                    const vacancyLeft = "transparent "+(+position - +line.blur)+posType;
+                    const colorLeft = rgbString+" "+position+posType;
+                    const colorRight = rgbString+" "+(+position + +size)+posType;
                     const vacancyRight = "transparent "+(+position + +size + +line.blur)+posType;
                     
                     backgroundImageCode += vacancyLeft+", "+colorLeft+", "+colorRight+", "+vacancyRight;
                 }
-                if(lineIndex < (linear.lines.length-1))
-                {
-                    backgroundImageCode += ", ";
-                }
-                else
-                {
-                    backgroundImageCode += ") ";
-                }
+                backgroundImageCode += (lineIndex < (linear.lines.length-1)) ? ", " : ") ";
 
             })
-
-            backgroundPosCode += (+linear.vertical * +props.data.zoom)+"px "+ (+linear.horizontal * +props.data.zoom)+"px";
-     
-            if(linearindex < (props.data.linears.length-1))
-            {
-                backgroundImageCode += ", ";
-                backgroundPosCode += ", ";
-            }
-
+            
+            const autoWidth = props.data.width * props.data.zoom;
+            const autoHeight = props.data.height * props.data.zoom;
+            const width = linear.width * props.data.zoom;
+            const height = linear.height * props.data.zoom;
+            
+            let backgroundPosCode = (+linear.vertical * +props.data.zoom)+"px "+ (+linear.horizontal * +props.data.zoom)+"px";
+            let backgroundWidthCode = (linear.autoSize == true)? autoWidth : width;
+            let backgroundHeightCode = (linear.autoSize == true)? autoHeight : height;
+            
+            const visibility = (linear.visible == true) ? "visible" : "hidden";
+            const grid = linear.grid;
+            
+            
+            const tempLayer = {image: backgroundImageCode, position: backgroundPosCode, isVisible: visibility, isGrid: grid, width: backgroundWidthCode, height: backgroundHeightCode};
+            Layers.push(tempLayer);
+            
         })
     }
     
 //RADIALS    
     if(props.data.radials.length > 0)
     {
-        
-        if(backgroundImageCode != "") backgroundImageCode += ", ";
-        
         props.data.radials.map( (radial, radialIndex) =>
         {
+            
+            let backgroundImageCode = "";
+            
             if(props.data.positioning == "%")
             {
                 backgroundImageCode += "radial-gradient("+radial.shape+" "+radial.size+" at "+radial.posx+posType+" "+radial.posy+posType+", ";    
@@ -408,12 +560,15 @@ const Preview = (props) =>
             
             radial.rays.map( (radius, radiusIndex) => 
             {
-                const color = hexToRgb(radius.color,radius.opacity/100);
-                if(props.data.positioning == "%") 
+                const color = hexToRgb(radius.color);
+                const rgbString = "rgba("+color[0]+", "+color[1]+", "+color[2]+", "+radius.opacity/100+")";
+                
+                
+                if(props.data.positioning == "%")
                 {
                     const vacancyLeft = "transparent "+(+radius.position - +1 - +radius.blur)+posType;
-                    const colorLeft = color+" "+radius.position+posType;
-                    const colorRight = color+" "+(+radius.position - +1 + +radius.size)+posType;
+                    const colorLeft = rgbString+" "+radius.position+posType;
+                    const colorRight = rgbString+" "+(+radius.position - +1 + +radius.size)+posType;
                     const vacancyRight = "transparent "+(+radius.position + +radius.size + +radius.blur)+posType;
                     
                     backgroundImageCode += vacancyLeft+", "+colorLeft+", "+colorRight+", "+vacancyRight;
@@ -423,9 +578,9 @@ const Preview = (props) =>
                     const position = radius.position * props.data.zoom;
                     const size = radius.size * props.data.zoom;
                     
-                    const vacancyLeft = "transparent "+(+position - +1 - +radius.blur)+posType+", "+color;
-                    const colorLeft = color+" "+position+posType;
-                    const colorRight = color+" "+(+position - +1 + +size)+posType;
+                    const vacancyLeft = "transparent "+(+position - +1 - +radius.blur)+posType;
+                    const colorLeft = rgbString+" "+position+posType;
+                    const colorRight = rgbString+" "+(+position - +1 + +size)+posType;
                     const vacancyRight = "transparent "+(+position + +size + +radius.blur)+posType;
                     
                     backgroundImageCode += vacancyLeft+", "+colorLeft+", "+colorRight+", "+vacancyRight;
@@ -440,14 +595,21 @@ const Preview = (props) =>
                 }
 
             })
+            
+            const autoWidth = props.data.width * props.data.zoom;
+            const autoHeight = props.data.height * props.data.zoom;
+            const width = radial.width * props.data.zoom;
+            const height = radial.height * props.data.zoom;
 
-            backgroundPosCode += (+radial.vertical * +props.data.zoom)+"px "+ (+radial.horizontal * +props.data.zoom)+"px";
-
-            if(radialIndex < (props.data.radials.length-1))
-            {
-                backgroundImageCode += ", ";
-                backgroundPosCode += ", ";
-            }
+            let backgroundPosCode = (+radial.vertical * +props.data.zoom)+"px "+ (+radial.horizontal * +props.data.zoom)+"px";
+            let backgroundWidthCode = (radial.autoSize == true)? autoWidth : width;
+            let backgroundHeightCode = (radial.autoSize == true)? autoHeight : height;
+            
+            const visibility = (radial.visible == true) ? "visible" : "hidden";
+            const grid = radial.grid;
+            
+            const tempLayer = {image: backgroundImageCode, position: backgroundPosCode, isVisible: visibility, isGrid: grid, width: backgroundWidthCode, height: backgroundHeightCode};
+            Layers.push(tempLayer);
 
         })
     }
@@ -463,27 +625,91 @@ const Preview = (props) =>
         repeat = "no-repeat";
     }
     
-
+    const length = Layers.length;
     
-    let CanvasStyle = {backgroundImage: backgroundImageCode, backgroundPosition: backgroundPosCode, backgroundColor: props.data.bacgroundColor, backgroundSize: (+props.data.width * +props.data.zoom)+"px "+ (+props.data.height * +props.data.zoom)+"px", backgroundRepeat: repeat};
-    let AreaStyle = 
+    const LayerDivs = Layers.map((value, index) =>
     { 
-        backgroundImage: "linear-gradient(90deg,transparent "+(+props.data.width * +props.data.zoom - 1)+"px,  rgba(0,0,0,1) "+(+props.data.width * +props.data.zoom)+"px), linear-gradient(180deg,transparent "+(+props.data.height * +props.data.zoom - 1)+"px,  rgba(0,0,0,1) "+(+props.data.height * +props.data.zoom)+"px)",
-        backgroundSize: (+props.data.width * +props.data.zoom)+"px "+ (+props.data.height * +props.data.zoom)+"px",    
-    }; 
+        const CanvasStyle = {backgroundImage: Layers[length-index-1].image, backgroundSize: Layers[length-index-1].width+"px "+Layers[length-index-1].height+"px", backgroundPosition: Layers[length-index-1].position, backgroundRepeat: repeat, visibility: Layers[length-index-1].isVisible};    
+    
+        let layerGridStyle;
+        
+        if (Layers[length-index-1].isGrid == true)
+        {  
+            const color = hexToRgb(props.data.bacgroundColor);  
+            const gridColor = (color[0]+color[1]+color[2] < 382) ? "rgb(255,255,255)" : "rgb(0,0,0)";
+            
+            layerGridStyle = 
+            { 
+                backgroundImage: 
+                "linear-gradient(90deg,transparent "+((+Layers[length-index-1].width * +props.data.zoom) - 1)+"px, "+gridColor+" "+((+Layers[length-index-1].width * +props.data.zoom) - 1)+"px, "+gridColor+" "+(+Layers[length-index-1].width * +props.data.zoom)+"px), linear-gradient(180deg,transparent "+(+Layers[length-index-1].height * +props.data.zoom - 1)+"px, "+gridColor+" "+(+Layers[length-index-1].height * +props.data.zoom - 1)+"px, "+gridColor+" "+(+Layers[length-index-1].height * +props.data.zoom)+"px)",
+                backgroundSize: (+Layers[length-index-1].width * +props.data.zoom)+"px "+ (+Layers[length-index-1].height * +props.data.zoom)+"px", backgroundPosition: Layers[length-index-1].position
+
+            }; 
+            
+            console.log(layerGridStyle.backgroundImage);
+
+        }
+        else 
+        {
+            layerGridStyle = 
+            { 
+                backgroundImage: ""
+            }
+        }
+        
+        
+        return(
+        <div className="layer" style={CanvasStyle} key={index}>    
+            <div className="grid" style={layerGridStyle}>
+            </div>
+        </div>
+        )
+    }
+    );
+        
+    
+
+    let areaStyle = {backgroundColor: props.data.bacgroundColor};
+    let canvasGridStyle;
     
     
     if ((props.data.width > 0 && props.data.height > 0) && props.data.grid == true)
-    return(
-        <div id="preview" style={CanvasStyle}>
-             <div id="primary-area" style={AreaStyle}></div>     
+    {  
+        
+        const color = hexToRgb(props.data.bacgroundColor);  
+        const gridColor = (color[0]+color[1]+color[2] < 382) ? "rgb(255,255,255)" : "rgb(0,0,0)";
+        
+        canvasGridStyle = 
+        { 
+            backgroundImage: 
+            "linear-gradient(90deg,transparent "+(+props.data.width * +props.data.zoom - 1)+"px, "+gridColor+" "+(+props.data.width * +props.data.zoom - 1)+"px, "+gridColor+" "+(+props.data.width * +props.data.zoom)+"px),"
+            +"linear-gradient(180deg,transparent "+(+props.data.height * +props.data.zoom - 1)+"px, "+gridColor+" "+(+props.data.width * +props.data.zoom -1)+"px, "+gridColor+" "+(+props.data.height * +props.data.zoom)+"px)",
+            
+            backgroundSize: (+props.data.width * +props.data.zoom)+"px "+ (+props.data.height * +props.data.zoom)+"px"
+ 
+        }; 
+        
+
+        
+    }
+    else 
+    {
+        canvasGridStyle = 
+        { 
+            backgroundImage: ""
+        }
+    }
+    
+    
+    
+    
+    
+        return(
+        <div id="canvas" style={areaStyle}>
+            {LayerDivs}
+            <div className="grid" style={canvasGridStyle}></div>
         </div>
-    )
-    else return(
-        <div id="preview" style={CanvasStyle}>
-             
-        </div>
-    );
+        );
 }
 
 
@@ -492,6 +718,7 @@ const Canvas = (props) =>
     let linearGrid = "";
     let backgroundImageCode = "";
     let backgroundPosCode = "";
+    let backgroundSizeCode = "";
     const posType = props.data.positioning;
     
 //LINEAR
@@ -502,11 +729,12 @@ const Canvas = (props) =>
             backgroundImageCode += "linear-gradient("+linear.direction+"deg, ";
             linear.lines.map( (line, lineIndex) => 
             {
-                const color = hexToRgb(line.color,line.opacity/100);
+                const colorArray = hexToRgb(line.color);
+                const rgbString = "rgba("+colorArray[0]+", "+colorArray[1]+", "+colorArray[2]+", "+line.opacity/100+")";
                 
                 const vacancyLeft = "transparent "+(+line.position - +line.blur)+posType;
-                const colorLeft = color+" "+line.position+posType;
-                const colorRight = color+" "+(+line.position + +line.size)+posType;
+                const colorLeft = rgbString+" "+line.position+posType;
+                const colorRight = rgbString+" "+(+line.position + +line.size)+posType;
                 const vacancyRight = "transparent "+(+line.position + +line.size + +line.blur)+posType;
                 
                 backgroundImageCode += vacancyLeft+", "+colorLeft+", "+colorRight+", "+vacancyRight;
@@ -520,13 +748,15 @@ const Canvas = (props) =>
                 }
 
             })
-            
+         
             backgroundPosCode += linear.vertical+"px "+linear.horizontal+"px";
+            backgroundSizeCode += (linear.autoSize == true)? props.data.width+"px "+props.data.height+"px" : linear.width+"px "+linear.height+"px";
             
             if(linearindex < (props.data.linears.length-1))
             {
                 backgroundImageCode += ", ";
                 backgroundPosCode += ", ";
+                backgroundSizeCode += ", ";
             }
 
         })
@@ -545,11 +775,12 @@ const Canvas = (props) =>
 
             radial.rays.map( (radius, radiusIndex) => 
             {
-                const color = hexToRgb(radius.color,radius.opacity/100);
+                const color = hexToRgb(radius.color);
+                const rgbString = "rgba("+color[0]+", "+color[1]+", "+color[2]+", "+radius.opacity/100+")";
 
                 const vacancyLeft = "transparent "+(+radius.position - +1 - +radius.blur)+posType;
-                const colorLeft = color+" "+radius.position+posType;
-                const colorRight = color+" "+(+radius.position - +1 + +radius.size)+posType;
+                const colorLeft = rgbString+" "+radius.position+posType;
+                const colorRight = rgbString+" "+(+radius.position - +1 + +radius.size)+posType;
                 const vacancyRight = "transparent "+(+radius.position + +radius.size + +radius.blur)+posType;
 
                 backgroundImageCode += vacancyLeft+", "+colorLeft+", "+colorRight+", "+vacancyRight;
@@ -563,13 +794,15 @@ const Canvas = (props) =>
                     backgroundImageCode += ") ";
                 }              
             })
-
+            
             backgroundPosCode += radial.vertical+"px "+radial.horizontal+"px";
+            backgroundSizeCode += (radial.autoSize == true)? props.data.width+"px "+props.data.height+"px" : radial.width+"px "+radial.height+"px";
 
             if(radialIndex < (props.data.radials.length-1))
             {
                 backgroundImageCode += ", ";
                 backgroundPosCode += ", ";
+                backgroundSizeCode += ", ";
             }
 
         })
@@ -587,24 +820,33 @@ const Canvas = (props) =>
         repeat = "no-repeat";
     }
     
-    let CanvasStyle = {backgroundImage: backgroundImageCode, backgroundPosition: backgroundPosCode, backgroundColor: props.data.bacgroundColor, backgroundSize: props.data.width+"px "+props.data.height+"px", backgroundRepeat: repeat};
+    let CanvasStyle = {backgroundImage: backgroundImageCode, backgroundPosition: backgroundPosCode, backgroundColor: props.data.bacgroundColor, backgroundSize: backgroundSizeCode, backgroundRepeat: repeat};
     
-    return(<div id="canvas" style={CanvasStyle}></div>);
+    return(<div id="code-div" style={CanvasStyle}></div>);
 }
 
 ////////////////////////////////////////////////////////////////////////GENERATED CODE///////////////////////////////////////////////////////////////////////        
-           
+
 const Code = (props) =>
 {  
     return(
-        <div id="code">
-            {props.input}
+        <div className="area" id="code">
+            <div className="card">
+                <div id="codeButton">
+                    <button onClick={props.handle} >Generate CSS</button>
+                </div>
+                <div id="codeText">
+                    <textarea id="code-output" value={props.code} readOnly>
+                        
+                    </textarea>    
+                </div>
+            </div>
         </div>
     );
-    
 }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////MAIN COMPONENT/////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class App extends React.Component
 {
@@ -618,12 +860,17 @@ class App extends React.Component
             width: 100,
             height: 100,
             zoom: 1.0,
-            code: "press button to generate",
+            code: "press button to generate...",
             grid: true,
             repeat: true,
             positioning: "%",
             linears: [],
-            radials: []
+            radials: [],
+            selected:
+            {
+                type: "none",
+                index: 0
+            }
         }
         
         //PATTERN EDITION
@@ -634,6 +881,11 @@ class App extends React.Component
         this.handleAddRadial = this.handleAddRadial.bind(this);
         this.handleAddRadius = this.handleAddRadius.bind(this);
         this.handleDeleteRadius = this.handleDeleteRadius.bind(this);
+        
+        //LIST
+        this.handleChangeLayer = this.handleChangeLayer.bind(this);
+        this.handleSetVisibility = this.handleSetVisibility.bind(this);
+        this.handleSetGrid = this.handleSetGrid.bind(this);
         
         //MAIN CONTROL
         this.handleBackgroundInput = this.handleBackgroundInput.bind(this);
@@ -674,7 +926,7 @@ class App extends React.Component
         if(this.state.linears.length == 0)
         {
             
-            tempLinear = {direction: 90, vertical: 0, horizontal: 0, lines: []};
+            tempLinear = {direction: 90, width: 0, height: 0, autoSize: true, vertical: 0, horizontal: 0, visible: true, grid: "false", lines: []};
             tempLinear.lines.push(tempLine);
         }
         else
@@ -714,10 +966,19 @@ class App extends React.Component
 
                         let linears = this.state.linears;
                         linears[LinearIndex].lines.splice(LineIndex,1);
-                        //console.log("Delete - lines length: "+lines[LinearIndex].lines.length);
                         if(linears[LinearIndex].lines.length == 0)
                             {
                                 linears.splice(LinearIndex,1);
+                                let selected = this.state.selected;
+                                if(linears.length>0)
+                                {
+                                    if(selected.index>0) selected.index -= 1;   
+                                }
+                                else
+                                {
+                                    selected.type = "none";
+                                }
+                                return{linears,selected};
                             }
                         return{linears};         
                
@@ -736,7 +997,7 @@ class App extends React.Component
         if(this.state.radials.length == 0)
         {
             
-            tempRadial = {shape: "ellipse ", size: "farthest-corner", posx: 50, posy: 50, vertical: 0, horizontal: 0, rays: []};
+            tempRadial = {shape: "ellipse ", autoSize: true, size: "farthest-corner", posx: 50, posy: 50, vertical: 0, horizontal: 0, visible: true, grid: false, rays: []};
             tempRadial.rays.push(tempRadius);
         }
         else
@@ -775,10 +1036,99 @@ class App extends React.Component
                         if(radials[radialIndex].rays.length == 0)
                             {
                                 radials.splice(radialIndex,1);
+                                let selected = this.state.selected;
+                                if(radials.length>0)
+                                {
+                                    if(selected.index>0) selected.index -= 1;
+                                }
+                                else
+                                {
+                                    selected.type = "none";
+                                }
+                                return{radials,selected};
                             }
                         return{radials};         
                
         });
+    }
+
+////////////////////////////////////////////////////////////////////////LIST///////////////////////////////////////////////////////////////////////////////////
+    
+    handleChangeLayer(type,index)
+    {
+        
+        const newSelected = {type: type, index: index};
+        this.setState({selected: newSelected});
+    }
+    
+    handleSetVisibility(type, index)
+    {
+        switch(type)
+            {
+                case "linear":
+                    {
+                        const newLinears = this.state.linears;
+                        if(this.state.linears[index].visible == true) 
+                            {
+                                newLinears[index].visible = false;
+                            }
+                        else
+                            {
+                                newLinears[index].visible = true;
+                            }
+                        this.setState({linears: newLinears});
+                        break;
+                    }
+                case "radial":
+                    {
+                        const newRadials = this.state.radials;
+                        if(this.state.radials[index].visible == true) 
+                            {
+                                newRadials[index].visible = false;
+                            }
+                        else
+                            {
+                                newRadials[index].visible = true;
+                            }
+                        this.setState({radials: newRadials});
+                        break;
+                    }
+            }
+    }
+    
+    handleSetGrid(type, index)
+    {
+        switch(type)
+            {
+                case "linear":
+                    {
+                        const newLinears = this.state.linears;
+                        if(this.state.linears[index].grid == true) 
+                            {
+                                newLinears[index].grid = false;
+                            }
+                        else
+                            {
+                                newLinears[index].grid = true;
+                            }
+                        this.setState({linears: newLinears});
+                        break;
+                    }
+                case "radial":
+                    {
+                        const newRadials = this.state.radials;
+                        if(this.state.radials[index].grid == true) 
+                            {
+                                newRadials[index].grid = false;
+                            }
+                        else
+                            {
+                                newRadials[index].grid = true;
+                            }
+                        this.setState({radials: newRadials});
+                        break;
+                    }
+            }
     }
     
 ////////////////////////////////////////////////////////////////////////MAIN CONTROL///////////////////////////////////////////////////////////////////////////
@@ -833,8 +1183,6 @@ class App extends React.Component
         this.setState({height: event.target.value});
     }
     
-
-    
     handleBackgroundInput(event)
     {
         this.setState({bacgroundColor: event.target.value});
@@ -884,6 +1232,37 @@ class App extends React.Component
                                 } 
                                 break;
                             }
+                        case "auto-size":
+                            {
+                                if(this.state.linears[firstIndex].autoSize == true)
+                                {
+                                    newLinears[firstIndex].width = this.state.width;
+                                    newLinears[firstIndex].height = this.state.height;
+                                    newLinears[firstIndex].autoSize = false;
+                                }
+                                else
+                                {
+                                    newLinears[firstIndex].autoSize = true;           
+                                }
+                                break;
+                            }
+                        case "width":
+                            {
+                                if(value >= 2)
+                                {
+                                    newLinears[firstIndex].width = value;
+                                }
+                                break;
+                            }
+                        case "height":
+                            {
+                                if(value >= 2)
+                                {
+                                    newLinears[firstIndex].height = value;
+                                }
+                                break;
+                            }
+
 
                         //LINE PROPERTIES
                         case "position": 
@@ -961,6 +1340,36 @@ class App extends React.Component
                                 newRadials[firstIndex].horizontal = value;
                                 break;
                             }
+                        case "auto-size":
+                            {
+                                if(this.state.radials[firstIndex].autoSize == true)
+                                {
+                                    newRadials[firstIndex].width = this.state.width;
+                                    newRadials[firstIndex].height = this.state.height;
+                                    newRadials[firstIndex].autoSize = false;
+                                }
+                                else
+                                {
+                                    newRadials[firstIndex].autoSize = true;           
+                                }
+                                break;
+                            }
+                        case "width":
+                            {
+                                if(value >= 2)
+                                {
+                                    newRadials[firstIndex].width = value;
+                                }
+                                break;
+                            }
+                        case "height":
+                            {
+                                if(value >= 2)
+                                {
+                                    newRadials[firstIndex].height = value;
+                                }
+                                break;
+                            }
                             
                         //LINE PROPERTIES
                         case "position": 
@@ -1007,6 +1416,9 @@ class App extends React.Component
             posy: 43,
             vertical: 50,
             horizontal: 50,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             rays: [{
                 position: 0,
                 color: "#bb0033",
@@ -1022,6 +1434,9 @@ class App extends React.Component
             posy: 43,
             vertical: 50,
             horizontal: 50,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             rays: [{
                 position: 0,
                 color: "#bb0033",
@@ -1037,6 +1452,9 @@ class App extends React.Component
             posy: 22,
             vertical: 50,
             horizontal: 50,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             rays: [{
                 position: 0,
                 color: "#dd3355",
@@ -1052,6 +1470,9 @@ class App extends React.Component
             posy: 22,
             vertical: 50,
             horizontal: 50,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             rays: [{
                 position: 0,
                 color: "#dd3355",
@@ -1067,6 +1488,9 @@ class App extends React.Component
             posy: 35,
             vertical: 50,
             horizontal: 50,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             rays: [{
                 position: 0,
                 color: "#dd3355",
@@ -1077,7 +1501,7 @@ class App extends React.Component
         }
         ];
         
-        this.setState({radials: tempRadials, linears: [], width: 100, height: 100, positioning: "%", bacgroundColor: "#bb0033"});
+        this.setState({radials: tempRadials, linears: [], width: 100, height: 100, positioning: "%", bacgroundColor: "#bb0033", selected: {type: "none", index: 0}});
     }
     
     handleSetBricks()
@@ -1086,6 +1510,9 @@ class App extends React.Component
             direction: 335,
             vertical: 0,
             horizontal: 2,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 0,
@@ -1101,6 +1528,9 @@ class App extends React.Component
             direction: 155,
             vertical: 4,
             horizontal: 35,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 0,
@@ -1115,6 +1545,9 @@ class App extends React.Component
             direction: 335,
             vertical: 29,
             horizontal: 31,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 0,
@@ -1129,6 +1562,9 @@ class App extends React.Component
             direction: 155,
             vertical: 34,
             horizontal: 6,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 0,
@@ -1140,7 +1576,7 @@ class App extends React.Component
             ]
         }];
         
-        this.setState({linears: tempLinears, radials: [], width: 58, height: 58, positioning: "px", bacgroundColor: "silver"});
+        this.setState({linears: tempLinears, radials: [], width: 58, height: 58, positioning: "px", bacgroundColor: "#c0c0c0", selected: {type: "none", index: 0}});
     }
     
     handleSetStairs()
@@ -1150,6 +1586,9 @@ class App extends React.Component
             direction: 64,
             vertical: 7,
             horizontal: 0,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 0,
@@ -1165,6 +1604,9 @@ class App extends React.Component
             direction: 63,
             vertical: 0,
             horizontal: 0,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 78,
@@ -1179,6 +1621,9 @@ class App extends React.Component
             direction: 63,
             vertical: 0,
             horizontal: 0,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 38,
@@ -1191,7 +1636,7 @@ class App extends React.Component
         }];
         
         
-        this.setState({linears: tempLinears, radials: [], width: 16, height: 48, positioning: "%", bacgroundColor: "#444444"});
+        this.setState({linears: tempLinears, radials: [], width: 16, height: 48, positioning: "%", bacgroundColor: "#444444", selected: {type: "none", index: 0}});
         
         
     }
@@ -1205,6 +1650,9 @@ class App extends React.Component
             posy: 50,
             vertical: 0,
             horizontal: 0,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             rays: [{
                 position: 99,
                 color: "#000000",
@@ -1220,6 +1668,9 @@ class App extends React.Component
             posy: 50,
             vertical: 40,
             horizontal: 40,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             rays: [{
                 position: 99,
                 color: "#000000",
@@ -1230,7 +1681,7 @@ class App extends React.Component
         }
         ];
         
-        this.setState({radials: tempRadials, linears: [], width: 80, height: 80, positioning: "%", bacgroundColor: "#ddeeff"});
+        this.setState({radials: tempRadials, linears: [], width: 80, height: 80, positioning: "%", bacgroundColor: "#ddeeff", selected: {type: "none", index: 0}});
     }
     
     handleSetMicrobial()
@@ -1242,6 +1693,9 @@ class App extends React.Component
             posy: 10,
             vertical: 0,
             horizontal: 10,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             rays: [{
                 position: 10,
                 color: "#661133",
@@ -1257,6 +1711,9 @@ class App extends React.Component
             posy: 20,
             vertical: 0,
             horizontal: 0,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             rays: [{
                 position: 10,
                 color: "#661133",
@@ -1267,7 +1724,7 @@ class App extends React.Component
         }
         ];
         
-        this.setState({radials: tempRadials, linears: [], width: 20, height: 20, positioning: "px", bacgroundColor: "#88aa33"});
+        this.setState({radials: tempRadials, linears: [], width: 20, height: 20, positioning: "px", bacgroundColor: "#88aa33", selected: {type: "none", index: 0}});
     }
     
     handleSetCarbon()
@@ -1276,6 +1733,9 @@ class App extends React.Component
             direction: 27,
             vertical: 0,
             horizontal: 5,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 0,
@@ -1289,6 +1749,9 @@ class App extends React.Component
             direction: 207,
             vertical: 10,
             horizontal: 0,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 0,
@@ -1302,6 +1765,9 @@ class App extends React.Component
             direction: 27,
             vertical: 0,
             horizontal: 10,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 0,
@@ -1315,6 +1781,9 @@ class App extends React.Component
             direction: 207,
             vertical: 10,
             horizontal: 5,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 0,
@@ -1328,6 +1797,9 @@ class App extends React.Component
             direction: 90,
             vertical: 0,
             horizontal: 0,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 0,
@@ -1341,6 +1813,9 @@ class App extends React.Component
             direction: 180,
             vertical: 0,
             horizontal: 0,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 0,
@@ -1365,7 +1840,7 @@ class App extends React.Component
                 }
             ]}
             ];
-            this.setState({linears: tempLinears, radials: [], width: 20, height: 20, positioning: "px", bacgroundColor: "#131313"});
+            this.setState({linears: tempLinears, radials: [], width: 20, height: 20, positioning: "px", bacgroundColor: "#131313", selected: {type: "none", index: 0}});
     }
     
     handleSetWeaves()
@@ -1374,6 +1849,9 @@ class App extends React.Component
             direction: 135,
             vertical: 0,
             horizontal: 0,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 22,
@@ -1396,6 +1874,9 @@ class App extends React.Component
             direction: 225,
             vertical: 0,
             horizontal: 64,
+            visible: true, 
+            grid: false,
+            autoSize: true,
             lines: [
                 {
                     position: 22,
@@ -1414,14 +1895,14 @@ class App extends React.Component
             ]
         }];
         
-        this.setState({linears: tempLinears, radials: [], width: 64, height: 128, positioning: "px", bacgroundColor: "#708090"});
+        this.setState({linears: tempLinears, radials: [], width: 64, height: 128, positioning: "px", bacgroundColor: "#708090", selected: {type: "none", index: 0}});
     }
     
 ////////////////////////////////////////////////////////////////////////GENERATE BUTTON////////////////////////////////////////////////////////////////////////
     
     handleGenerateButton()
     {
-        const selector = document.querySelector("#preview");
+        const selector = document.querySelector("#code-div");
         const text = selector.style.cssText;
         this.setState({code: text});
     }
@@ -1432,18 +1913,40 @@ class App extends React.Component
     
     render()
     {
-        //Zrobić hierarchię
-        //zmienić code na input
         return(
-            <div>
-                <div id="app">
+        
+        <div id="container">
+            
+            <MainProp data={this.state} pointer={this} />
+            <List data={this.state} handleChangeLayer={this.handleChangeLayer} handleVisibility={this.handleSetVisibility} handleGrid={this.handleSetGrid}/>
+            <Properties handleChange={this.handleChangeInput} data={this.state} addLine={this.handleAddLine} deleteLine={this.handleDeleteLine} addRadius={this.handleAddRadius} deleteRadius={this.handleDeleteRadius}/>
+            
+            <Preview data={this.state} />
+            <Canvas data={this.state} />
+            
+            <Logo />
+            <Links />
+            <Ads />
+            <Footer />
+            <Code handle={this.handleGenerateButton} code={this.state.code} />
+        
+        </div>
+        );
+        
+        /*
+
+                        
+                     <Controls data={this.state} handleChangeWidth={this.handleWidthInput} handleChangeHeight={this.handleHeightInput} handleChange={this.handleBackgroundInput} handleRepeat={this.handleRepeat} handleGrid={this.handleShowGrid} handlePositioning={this.handlePositioning} handleZoom={this.handleZoom} />
+                        
+                     <Buttons addLinear={this.handleAddLinear} addRadial={this.handleAddRadial} setHearts={this.handleSetHearts} setBricks={this.handleSetBricks} setStairs={this.handleSetStairs} setShippo={this.handleSetShippo} setMicrobial={this.handleSetMicrobial} setWeaves={this.handleSetWeaves} setCarbon={this.handleSetCarbon}/>
+                
 
                     <Preview data={this.state} />
                     <Canvas data={this.state} />
 
                     <div id="control-panel">
                         <div className="control-section">
-                            <Controls data={this.state} handleChangeWidth={this.handleWidthInput} handleChangeHeight={this.handleHeightInput} handleChange={this.handleBackgroundInput} handleRepeat={this.handleRepeat} handleGrid={this.handleShowGrid} handlePositioning={this.handlePositioning} handleZoom={this.handleZoom} />
+                            
                         </div>
                         <div className="control-section">
                         
@@ -1469,10 +1972,11 @@ class App extends React.Component
             
             </div>
         );
+        */
     }
 }
 
 
 
 
-ReactDOM.render(<App/>, document.querySelector("#container"));
+ReactDOM.render(<App />, document.querySelector("#App"));

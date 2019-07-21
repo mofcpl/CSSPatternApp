@@ -1,244 +1,271 @@
-button:focus 
+:root
 {
-    outline:0;
+    --outer-space: #434855;
+    --outer-space-light: #4f5564;
+    --outer-space-dark: #383c47;
+    --outer-space-text: #b8bcc7;
+    --outer-space-text-dark: #5a6072;
+    --outer-space-text-light: #f1f2f4;
+    --azure: #0884FF;
+    --aurometalsaurus: #757c8a;
+    --aurometalsaurus-light: #9fa3ad;
+    --aurometalsaurus-dark: #525760;
+    --charleston-green: #232935;
+    --arsenic: #373c48;
+    --arsenic-light: #596173;
+    --arsenic-dark: #2c303a;
 }
 
-button
-{
-    font-family: inherit;
-}
-
-input[type="color"]::-webkit-color-swatch 
-{
-	border: none;
-    margin: 5px;
-}
-
-input[type=number]::-webkit-inner-spin-button 
-{
-  opacity: 1;
-}
-
-input[type=checkbox]:focus
-{
-    outline:0;
-}
-
-input[type=checkbox]
-{
-    width: 30px;
-    -webkit-appearance: none;
-    background-color: white;
-    cursor: pointer;
-    transform: scale(0.7);
-}
-
-input[type=checkbox]:checked
-{
-    -webkit-appearance: none;
-    background-color: #839faf;
-
-}
-
-input[type=checkbox]:hover
-{
-    transform: scale(0.8);
-
-}
+/*----------------------------------------------------------MAIN-------------------------------------------------------------*/
 
 body
 {
-    width: 100vw;
-    height: 100vh;
-    font-family: 'Ubuntu', sans-serif;
-    background-image: linear-gradient(90deg, white);
-    display: grid;
-    grid-template-columns: 10% 20% 20% 50%;
-    grid-template-rows: 15% 10% 55% 15% 5%;
-    grid-template-areas: 
-    "logo logo top-ads top-ads"
-    "ads ads ads ads"
-    "side-ads aps aps aps"
-    "side-ads aps aps aps"
-    "footer footer footer footer";
-}
-
-
-#title
-{
-    background-color: #3c495d;
-    grid-area: logo;
-    color: white;
-    display: flex;
-    align-items: center;
-}
-#title h1
-{
-    font-weight: 400;
-    font-size: 3.5em;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-#top-ads
-{
-    grid-area: top-ads;
-    display: flex;
-    align-items: center;
-    background-color: #e0e4eb;
-}
-#top-ads div
-{
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 2em;
-}
-
-
-#banner-ads
-{
-    grid-area: ads;
-    display: flex;
-    align-items: center;
-}
-#banner-ads div
-{
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 2em;
-}
-
-
-#side-ads
-{
-    grid-area: side-ads;
-
+    font-family: 'Roboto', sans-serif; 
+    background-color:  var(--charleston-green);
+    margin: 0;
+    padding: 0; 
 }
 
 #container
 {
-    grid-area: aps;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 25% auto 20% 12%;
+    grid-template-rows: 15% 5% 10% 40% 10% 20%;
+    grid-template-areas: 
+        "logo links main-prop main-prop"
+        "ads ads main-prop main-prop"
+        "canvas canvas main-prop main-prop"
+        "canvas canvas prop list"
+        "canvas canvas prop list"
+        "code code footer footer"; 
 }
 
-#preview /* Obszar gdzie generowany jest wzór */
+#code-div
+{
+    display: none;
+}
+
+/*----------------------------------------------------------COMMON----------------------------------------------------------*/
+
+.area
+{
+   padding: 6px 5px 6px 5px; 
+    
+}
+
+.card
+{
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
+    
+    width: 100%;
+    height: 100%;
+    background-color: var(--aurometalsaurus);
+    border-top: solid 2px var(--aurometalsaurus-light);
+    border-bottom: solid 2px var(--aurometalsaurus-dark);
+    padding: 5px;
+    
+}
+
+
+/*----------------------------------------------------------LOGO------------------------------------------------------------*/
+
+
+#logo
+{
+    grid-area: logo;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    
+}
+#logo div
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--arsenic);
+    color: #e2e4e9;
+    border: 0;
+    border-top: solid 2px var(--arsenic-light);
+    border-bottom: solid 2px var(--arsenic-dark);
+}
+#logo div div
+{
+    font-size: 3vw;
+    font-weight: bold;
+    border: 0;
+    
+}
+#logo div div span
+{
+    color: var(--azure);
+}
+
+
+/*----------------------------------------------------------LINKS-----------------------------------------------------------*/
+
+#links
+{
+    grid-area: links;
+    padding-left: 0;
+    padding-top: 0;
+}
+
+/*----------------------------------------------------------ADS-------------------------------------------------------------*/
+
+#ads
+{
+    grid-area: ads;
+    padding-left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #ffffcc;
+}
+
+/*----------------------------------------------------------CANVAS----------------------------------------------------------*/
+
+#canvas
+{
+    grid-area: canvas;
+    background-color: #ffffff;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin: 5px;
+    margin-left: 0px;
+    position: relative;
+    
+}
+
+
+
+.grid
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    z-index: 1;
+}
+.layer
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}
+
+/*----------------------------------------------------------CODE------------------------------------------------------------*/
+
+textarea
+{
+    resize: none;
+}
+
+#code
+{
+    grid-area: code;
+}
+
+#code .card
+{
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: auto;
+}
+
+#codeButton
+{
+    grid-column: 1 /  2;
+    justify-self: center;
+    align-self: center;
+}
+
+#codeText
+{
+    grid-column: 2 /  3;
+    justify-self: center;
+    align-self: center;
+    width: 90%;
+    height: 80%;
+
+    
+    background-color: var(--outer-space);
+    border-top: solid 2px var(--outer-space-light);
+    border-bottom: solid 2px var(--outer-space-dark);
+    color: var(--outer-space-text);
+    padding: 10px;
+}
+
+#code-output
 {
     height: 100%;
-    width: 40%;
-    border: 20px solid #e0e4eb;
-}
-
-#control-panel 
-{
-    margin-left: 2%;
-    padding: 10px 10px 10px 10px;
-    margin-right: 10px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-#app
-{
-    display: flex;
-    height: 500px;
-}
-
-#primary-area /* Nakładka na canvas do generowania siatki */
-{
     width: 100%;
-    height: 100%;   
+    border: 0;
+    background-color: #d4d7dd;
+    color: #21242c;
+    border-bottom: solid 1px #f1f2f4;
+    border-top: solid 1px #a9afbc;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
-/* Według hierarchi */
+/*----------------------------------------------------------FOOTER----------------------------------------------------------*/
 
-
-.control-section 
+#footer
 {
+    grid-area: footer;
+    padding-left: 0;
     display: flex;
-    background-color: #e0e4eb;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #ffffcc;
 }
 
-.control-lines
-{
-    padding: 10px 10px 10px 10px;
-    margin: 10px;
-    background-color: #c1cfd7;
-}
+/*----------------------------------------------------------MAIN PROPERTIES-------------------------------------------------*/
 
-.control-module
+#main-prop
 {
+    grid-area: main-prop;
+    padding-top: 8px;
+    padding-right: 8px;
+}
+#main-prop .card
+{
+    display: grid;
+    grid-template-rows: 70% 30%;
+    grid-template-areas: "moduleA" "moduleB"; 
+}
+#moduleA
+{
+    grid-area: moduleA;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
     
-    padding: 0px 10px 0px 10px;
-    margin: 5px;
+    background-color: var(--outer-space);
+    border-top: solid 2px var(--outer-space-light);
+    border-bottom: solid 2px var(--outer-space-dark);
+    color: var(--outer-space-text);
+    
+    padding: 5px;
+}
+#moduleB
+{
+    grid-area: moduleB;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    justify-content: flex-start;
+    align-content: center;
 }
-
-.control-lines .control-module
-{
-    border: 0;
-    background-color: #e0e7eb;
-}
-
-.control-module-main
-{
-    background-color: #c1cfd7;
-    padding: 0px 10px 0px 10px;
-    margin: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.control-triger
-{
-    display: flex;
-    align-items: center;
-    margin: 10px 5px 10px 5px;
-}
-.control-name
-{
-    font-size: 20px;
-}
-
-.control-triger input
-{
-    border: 0;
-    height: 30px;
-    padding: 0px 5px 0px 5px;
-    margin: 0px 10px 0px 5px;
-    font-family: inherit;
-}
-
-.control-triger select
-{
-    margin: 0px 10px 0px 10px;
-    border: 0;
-}
-
-
-.control-button
-{
-    padding: 0px 10px 0px 10px;
-    height: 40px;
-    margin: 5px;
-    font-size: 20px;
-    cursor: pointer;
-    background-color: #92abb9;
-    border: 0;
-}
-
-.control-button:hover
-{
-    background-color: #839faf;
-}
-
-.control-button:active
-{
-    transform: scale(0.95);
-}
-
 .dropdown 
 {
   position: relative;
@@ -274,91 +301,230 @@ body
 
 .dropdown:hover .dropdown-content {display: block;}
 
-.control-module input[type=number]
+.control-triger
 {
-    width: 60px;
-    text-align: center;
-    border: 0;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    margin: 5px 12px;
+    
+}
+.control-name
+{
+    margin: 0px 3px;
 }
 
-.control-module input[type=text]
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button 
+{  
+
+    opacity: 1;
+    cursor: pointer;
+
+}
+.control-triger input
 {
+    margin: 0px 3px;
     width: 50px;
-    text-align: center;
+    background-color: #d4d7dd;
+    color: #21242c;
     border: 0;
 }
-
-.control-module input[type=color]
+.control-triger input[type=checkbox]
 {
-    background-color: #92abb9;
-    height: 40px;
+    margin: 0px 3px;
+    width: 20px;
+    cursor: pointer;
+}
+.control-triger input[type=range]
+{
+    margin: 0px 3px;
+    width: 100px; 
+    cursor: pointer;
+}
+.control-triger input[type=color]
+{
+    margin: 0px 3px;
+    width: 20px;
+    cursor: pointer;
+}
+.control-triger input[type=number]
+{
+    margin: 0px 3px;
+    width: 40px;
+    text-align: center;
+    border-bottom: solid 1px #f1f2f4;
+    border-top: solid 1px #a9afbc;
+}
+.control-triger select
+{
+    border: 0;
+    background-color: #d4d7dd;
+    color: #21242c;
+        border-bottom: solid 1px #f1f2f4;
+    border-top: solid 1px #a9afbc;
     cursor: pointer;
 }
 
-.control-module input[type=range]
+button
 {
-    background-color: #839faf;
-    width: 100px;
+    height: 40px;
+    width: auto;
+    margin: 2px 5px 2px 0px;
+    background-color: #5a6172;
+    border: 0;
+    background-color: var(--outer-space);
+    border-top: solid 2px var(--outer-space-light);
+    border-bottom: solid 2px var(--outer-space-dark);
+    color: var(--outer-space-text);
+    cursor: pointer;
+}
+button:hover
+{
+    color: var(--outer-space-text-light);
+}
+button:active
+{
+    background-color: #2d3139;
+    border-top: solid 2px #22252b;
+    border-bottom: solid 2px #434956;
+    color: var(--outer-space-text);
+}
+
+
+textarea:focus, input:focus, select:focus
+{
+    outline: none;
+}
+
+*:focus
+{
+    outline: none;
+}
+
+input[type="number"]:disabled 
+{
+  color: #b6bbc8;
+}
+
+
+/*----------------------------------------------------------LIST------------------------------------------------------------*/
+
+#list
+{
+    grid-area: list;
+    padding-right: 8px;
+}
+
+#list .card
+{
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
+    
+    display: flex;
+    flex-direction: column;
+    padding: 0;
     
 }
 
-.control-module input[type=color]:hover
+.list-item
 {
-    background-color: #839faf;
-}
-
-
-
-
-
-#code-panel
-{
-    display: flex;
-    height: 100%;
-    margin-top: 40px;
-    justify-content: center;
-}
-
-#code-panel button
-{
-    margin-right: 20px;
-    font-family: inherit;
-    cursor: pointer;
-    padding: 0px 10px 0px 10px;
-    background-color: #e0e4eb;
-    border: 0;
-}
-
-#code-panel button:hover
-{
-    background-color: #d0dbe1;
-}
-
-#code-panel button:active
-{
-
-    transform: scale(0.97);
-}
-
-
-#code
-{
-    height: 100px;
-    width: 800px;
-    word-break:break-all;
-    padding: 10px;
-    font-family: 'Source Code Pro', monospace;
-    font-size: 14px;
-    overflow-y: auto;
-    background-color: #eff3f5;
-}
-
-
-#footer
-{
-    grid-area: footer;
-    display: flex;
-    justify-content: center;
+    height: 40px;
+    margin: 2px 5px 2px 5px;
+    display: grid;
+    grid-template-columns: 50% 25% 25%;
+    grid-template-areas: "text eye grid";
     align-items: center;
+    background-color: var(--outer-space);
+    border-top: solid 2px var(--outer-space-light);
+    border-bottom: solid 2px var(--outer-space-dark);
+    color: var(--outer-space-text);
 }
 
+.list-item-active
+{
+    height: 40px;
+    margin: 2px 5px 2px 5px;
+    display: grid;
+    grid-template-columns: 50% 25% 25%;
+    grid-template-areas: "text eye grid";
+    align-items: center;
+    background-color: #2d3139;
+    border-top: solid 2px #22252b;
+    border-bottom: solid 2px #434956;
+    color: var(--outer-space-text);
+}
+
+.list-item button, .list-item-active button
+{
+    border: 0;
+    height: auto;
+}
+.list-item button:active
+{
+    color: var(--outer-space-text-light);
+    background-color: inherit;
+}
+
+.text
+{
+    text-align: center;
+    grid-area: text;
+    background-color: transparent;
+}
+
+.eye-icon
+{
+    text-align: center;
+    grid-area: eye;
+    background-color: transparent;
+    color: var(--outer-space-text-dark);
+}
+.grid-icon
+{
+    text-align: center;
+    grid-area: grid;
+    background-color: transparent;
+    color: var(--outer-space-text-dark);
+}
+.eye-icon-active
+{
+    text-align: center;
+    grid-area: eye;
+    background-color: transparent;
+}
+.grid-icon-active
+{
+    text-align: center;
+    grid-area: grid;
+    background-color: transparent;
+}
+
+/*----------------------------------------------------------PROPERTIES------------------------------------------------------*/
+
+#prop
+{
+    grid-area: prop;
+    
+}
+
+#prop .card
+{
+    overflow-y: auto;
+}
+
+.control-module
+{
+    grid-area: moduleA;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    
+    background-color: var(--outer-space);
+    border-top: solid 2px var(--outer-space-light);
+    border-bottom: solid 2px var(--outer-space-dark);
+    color: var(--outer-space-text);
+    
+    padding: 5px;
+}
