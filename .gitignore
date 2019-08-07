@@ -1,4 +1,5 @@
-LICENSE.txt
-React/
-css/
-font/
+dist/
+node_modules/
+src/css/
+src/font/
+

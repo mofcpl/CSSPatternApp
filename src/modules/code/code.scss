@@ -1,0 +1,48 @@
+#code
+{
+    grid-area: code;
+
+    .card
+    {
+        display: grid;
+        grid-template-columns: 20% 80%;
+        grid-template-rows: auto;
+
+        #codeButton
+        {
+            grid-column: 1 /  2;
+            justify-self: center;
+            align-self: center;
+        }
+
+        #codeText
+        {
+            grid-column: 2 /  3;
+            justify-self: center;
+            align-self: center;
+            width: 90%;
+            height: 80%;
+
+            
+            background-color: var(--outer-space);
+            border-top: solid 2px var(--outer-space-light);
+            border-bottom: solid 2px var(--outer-space-dark);
+            color: var(--outer-space-text);
+            padding: 10px;
+
+            #code-output
+            {
+                height: 100%;
+                width: 100%;
+                border: 0;
+                background-color: #d4d7dd;
+                color: #21242c;
+                border-bottom: solid 1px #f1f2f4;
+                border-top: solid 1px #a9afbc;
+                overflow-y: auto;
+                box-sizing: border-box;
+
+            }
+        }
+    }
+}

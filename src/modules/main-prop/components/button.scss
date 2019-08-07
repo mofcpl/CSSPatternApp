@@ -1,0 +1,45 @@
+
+@import '../../../inputs';
+@import '../../../colors';
+
+#moduleB
+{
+    grid-area: moduleB;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+
+    .dropdown 
+    {
+        position: relative;
+        display: inline-block;
+
+
+
+        .dropdown-content 
+        {
+            display: none;
+            position: absolute;
+            overflow-y: scroll;
+            height: 500px;
+            
+            button 
+            {
+                text-decoration: none;
+                display: block;
+                width: 250px;
+                height: 250px;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .dropdown:hover .dropdown-content 
+    {
+        display: block;
+    }
+}

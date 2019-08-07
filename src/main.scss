@@ -1,0 +1,64 @@
+@import 'colors';
+
+body
+{
+    font-family: 'Roboto', sans-serif; 
+    background-color:  $charleston-green;
+    margin: 0;
+    padding: 0; 
+}
+
+#container
+{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 25% auto 20% 12%;
+    grid-template-rows: 15% 5% 10% 40% 10% 20%;
+    grid-template-areas: 
+        "logo links main-prop main-prop"
+        "ads ads main-prop main-prop"
+        "canvas canvas main-prop main-prop"
+        "canvas canvas prop list"
+        "canvas canvas prop list"
+        "code code footer footer"; 
+}
+
+.area
+{
+   padding: 6px 5px 6px 5px; 
+}
+
+.card
+{
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box;    
+    box-sizing: border-box;
+    
+    width: 100%;
+    height: 100%;
+    background-color: $aurometalsaurus;
+    border-top: solid 2px adjust-color($aurometalsaurus, $lightness: +10%);
+    border-bottom: solid 2px adjust-color($aurometalsaurus, $lightness: -10%);
+    padding: 5px;
+    
+}
+
+.grid
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    z-index: 1;
+}
+.layer
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}

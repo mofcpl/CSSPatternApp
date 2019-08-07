@@ -52,13 +52,12 @@ body
 .area
 {
    padding: 6px 5px 6px 5px; 
-    
 }
 
 .card
 {
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box;    
     box-sizing: border-box;
     
     width: 100%;
@@ -142,25 +141,6 @@ body
 }
 
 
-
-.grid
-{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    z-index: 1;
-}
-.layer
-{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-
-}
 
 /*----------------------------------------------------------CODE------------------------------------------------------------*/
 
@@ -428,33 +408,7 @@ input[type="number"]:disabled
     
 }
 
-.list-item
-{
-    height: 40px;
-    margin: 2px 5px 2px 5px;
-    display: grid;
-    grid-template-columns: 50% 25% 25%;
-    grid-template-areas: "text eye grid";
-    align-items: center;
-    background-color: var(--outer-space);
-    border-top: solid 2px var(--outer-space-light);
-    border-bottom: solid 2px var(--outer-space-dark);
-    color: var(--outer-space-text);
-}
 
-.list-item-active
-{
-    height: 40px;
-    margin: 2px 5px 2px 5px;
-    display: grid;
-    grid-template-columns: 50% 25% 25%;
-    grid-template-areas: "text eye grid";
-    align-items: center;
-    background-color: #2d3139;
-    border-top: solid 2px #22252b;
-    border-bottom: solid 2px #434956;
-    color: var(--outer-space-text);
-}
 
 .list-item button, .list-item-active button
 {
