@@ -5,6 +5,7 @@ import style from "./code.scss";
 
 const Code = (props) =>
 {  
+
     return(
         <div className="area" id="code">
             <div className="card">

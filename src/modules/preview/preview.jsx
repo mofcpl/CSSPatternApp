@@ -220,7 +220,6 @@ const Preview = (props) =>
  
         }; 
         
-        console.log(canvasGridStyle);
         
     }
     else 

@@ -5,7 +5,6 @@ import style from "./list.scss";
 
 const List = (props) =>
 {
-    
     const linears = props.data.linears;
     const radials = props.data.radials;
     const activeType = props.data.selected.type;
