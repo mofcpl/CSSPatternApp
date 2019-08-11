@@ -6,7 +6,7 @@ import style from "./controls.scss";
 const Controls = (props) =>
 {
     
-    const bacgroundColor = props.data.bacgroundColor;
+    const backgroundColor = props.data.backgroundColor;
     const width = props.data.width;
     const height = props.data.height;
     const grid = props.data.grid;
@@ -20,17 +20,17 @@ const Controls = (props) =>
                 <div className="control-name">background</div>
                 <input 
                     type="color"
-                    value={bacgroundColor}
+                    value={backgroundColor}
                     onChange={props.handleChange}
                     placeholder="HTML code..."/>
             </div>
             <div className="control-triger">
-                <div className="control-name">width</div>
+                <div className="control-name">width(px)</div>
 
                 <input min="2" type="number" value={width} onChange={props.handleChangeWidth}/>
             </div>
             <div className="control-triger">
-                <div className="control-name">height</div>
+                <div className="control-name">height(px)</div>
 
                 <input min="2" type="number" value={height} onChange={props.handleChangeHeight}/>
             </div>

@@ -1,3 +1,6 @@
+@import '../../colors';
+@import '../../mixin';
+
 #code
 {
     grid-area: code;
@@ -22,26 +25,21 @@
             align-self: center;
             width: 90%;
             height: 80%;
-
-            
-            background-color: var(--outer-space);
-            border-top: solid 2px var(--outer-space-light);
-            border-bottom: solid 2px var(--outer-space-dark);
-            color: var(--outer-space-text);
             padding: 10px;
-
+        
+            @include card-scheme($outer_space, 5%);
+            color: adjust-color($outer-space, $lightness: +45%);
+            
             #code-output
             {
                 height: 100%;
                 width: 100%;
                 border: 0;
-                background-color: #d4d7dd;
-                color: #21242c;
-                border-bottom: solid 1px #f1f2f4;
-                border-top: solid 1px #a9afbc;
+                color: adjust-color($outer-space, $lightness: -15%);
+                @include card-scheme(adjust-color($outer-space, $lightness: +50%), +15%);
                 overflow-y: auto;
                 box-sizing: border-box;
-
+                resize: none;
             }
         }
     }

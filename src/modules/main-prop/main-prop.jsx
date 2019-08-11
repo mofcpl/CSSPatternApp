@@ -17,7 +17,7 @@ const MainProp = (props) =>
                         handleChangeHeight={props.pointer.handleHeightInput} 
                         handleChange={props.pointer.handleBackgroundInput} 
                         handleRepeat={props.pointer.handleRepeat} 
-                        handleGrid={props.pointer.handleShowGrid} 
+                        handleGrid={props.pointer.handleGrid} 
                         handlePositioning={props.pointer.handlePositioning} 
                         handleZoom={props.pointer.handleZoom} 
                     />

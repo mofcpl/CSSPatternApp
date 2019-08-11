@@ -1,4 +1,5 @@
 @import 'colors';
+@import 'mixin';
 
 body
 {
@@ -37,11 +38,8 @@ body
     
     width: 100%;
     height: 100%;
-    background-color: $aurometalsaurus;
-    border-top: solid 2px adjust-color($aurometalsaurus, $lightness: +10%);
-    border-bottom: solid 2px adjust-color($aurometalsaurus, $lightness: -10%);
     padding: 5px;
-    
+    @include card-scheme($aurometalsaurus, 10%);
 }
 
 .grid

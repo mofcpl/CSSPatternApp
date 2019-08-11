@@ -13,8 +13,6 @@ import {Code} from "./modules/code/code.jsx"
 
 
 
-
-
 class App extends React.Component
 {
     constructor()
@@ -23,7 +21,7 @@ class App extends React.Component
         
         this.state = 
         {
-            bacgroundColor: "#ffffff",
+            backgroundColor: "#ffffff",
             width: 100,
             height: 100,
             zoom: 1.0,
@@ -58,7 +56,7 @@ class App extends React.Component
         this.handleBackgroundInput = this.handleBackgroundInput.bind(this);
         this.handleWidthInput = this.handleWidthInput.bind(this);
         this.handleHeightInput = this.handleHeightInput.bind(this);
-        this.handleShowGrid = this.handleShowGrid.bind(this);
+        this.handleGrid = this.handleGrid.bind(this);
         this.handleRepeat = this.handleRepeat.bind(this);
         this.handlePositioning = this.handlePositioning.bind(this);
         this.handleZoom = this.handleZoom.bind(this);
@@ -300,7 +298,7 @@ class App extends React.Component
     
 ////////////////////////////////////////////////////////////////////////MAIN CONTROL///////////////////////////////////////////////////////////////////////////
     
-    handleShowGrid()
+    handleGrid()
     {
         switch(this.state.grid)
             {
@@ -352,7 +350,7 @@ class App extends React.Component
     
     handleBackgroundInput(event)
     {
-        this.setState({bacgroundColor: event.target.value});
+        this.setState({backgroundColor: event.target.value});
     }
     
     handlePositioning(event)
@@ -668,7 +666,7 @@ class App extends React.Component
         }
         ];
         
-        this.setState({radials: tempRadials, linears: [], width: 100, height: 100, positioning: "%", bacgroundColor: "#bb0033", selected: {type: "none", index: 0}});
+        this.setState({radials: tempRadials, linears: [], width: 100, height: 100, positioning: "%", backgroundColor: "#bb0033", selected: {type: "none", index: 0}});
     }
     
     handleSetBricks()
@@ -743,7 +741,7 @@ class App extends React.Component
             ]
         }];
         
-        this.setState({linears: tempLinears, radials: [], width: 58, height: 58, positioning: "px", bacgroundColor: "#c0c0c0", selected: {type: "none", index: 0}});
+        this.setState({linears: tempLinears, radials: [], width: 58, height: 58, positioning: "px", backgroundColor: "#c0c0c0", selected: {type: "none", index: 0}});
     }
     
     handleSetStairs()
@@ -803,7 +801,7 @@ class App extends React.Component
         }];
         
         
-        this.setState({linears: tempLinears, radials: [], width: 16, height: 48, positioning: "%", bacgroundColor: "#444444", selected: {type: "none", index: 0}});
+        this.setState({linears: tempLinears, radials: [], width: 16, height: 48, positioning: "%", backgroundColor: "#444444", selected: {type: "none", index: 0}});
         
         
     }
@@ -848,7 +846,7 @@ class App extends React.Component
         }
         ];
         
-        this.setState({radials: tempRadials, linears: [], width: 80, height: 80, positioning: "%", bacgroundColor: "#ddeeff", selected: {type: "none", index: 0}});
+        this.setState({radials: tempRadials, linears: [], width: 80, height: 80, positioning: "%", backgroundColor: "#ddeeff", selected: {type: "none", index: 0}});
     }
     
     handleSetMicrobial()
@@ -891,7 +889,7 @@ class App extends React.Component
         }
         ];
         
-        this.setState({radials: tempRadials, linears: [], width: 20, height: 20, positioning: "px", bacgroundColor: "#88aa33", selected: {type: "none", index: 0}});
+        this.setState({radials: tempRadials, linears: [], width: 20, height: 20, positioning: "px", backgroundColor: "#88aa33", selected: {type: "none", index: 0}});
     }
     
     handleSetCarbon()
@@ -1007,7 +1005,7 @@ class App extends React.Component
                 }
             ]}
             ];
-            this.setState({linears: tempLinears, radials: [], width: 20, height: 20, positioning: "px", bacgroundColor: "#131313", selected: {type: "none", index: 0}});
+            this.setState({linears: tempLinears, radials: [], width: 20, height: 20, positioning: "px", backgroundColor: "#131313", selected: {type: "none", index: 0}});
     }
     
     handleSetWeaves()
@@ -1062,7 +1060,7 @@ class App extends React.Component
             ]
         }];
         
-        this.setState({linears: tempLinears, radials: [], width: 64, height: 128, positioning: "px", bacgroundColor: "#708090", selected: {type: "none", index: 0}});
+        this.setState({linears: tempLinears, radials: [], width: 64, height: 128, positioning: "px", backgroundColor: "#708090", selected: {type: "none", index: 0}});
     }
     
 ////////////////////////////////////////////////////////////////////////GENERATE BUTTON////////////////////////////////////////////////////////////////////////

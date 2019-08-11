@@ -166,7 +166,7 @@ const Preview = (props) =>
         
         if (Layers[length-index-1].isGrid == true)
         {  
-            const color = hexToRgb(props.data.bacgroundColor);  
+            const color = hexToRgb(props.data.backgroundColor);  
             const gridColor = (color[0]+color[1]+color[2] < 382) ? "rgb(255,255,255)" : "rgb(0,0,0)";
             
             layerGridStyle = 
@@ -177,7 +177,7 @@ const Preview = (props) =>
 
             }; 
             
-            console.log(layerGridStyle.backgroundImage);
+            
 
         }
         else 
@@ -200,27 +200,27 @@ const Preview = (props) =>
         
     
 
-    let areaStyle = {backgroundColor: props.data.bacgroundColor};
+    let areaStyle = {backgroundColor: props.data.backgroundColor};
     let canvasGridStyle;
     
     
     if ((props.data.width > 0 && props.data.height > 0) && props.data.grid == true)
     {  
         
-        const color = hexToRgb(props.data.bacgroundColor);  
+        const color = hexToRgb(props.data.backgroundColor);  
         const gridColor = (color[0]+color[1]+color[2] < 382) ? "rgb(255,255,255)" : "rgb(0,0,0)";
         
         canvasGridStyle = 
         { 
             backgroundImage: 
             "linear-gradient(90deg,transparent "+(+props.data.width * +props.data.zoom - 1)+"px, "+gridColor+" "+(+props.data.width * +props.data.zoom - 1)+"px, "+gridColor+" "+(+props.data.width * +props.data.zoom)+"px),"
-            +"linear-gradient(180deg,transparent "+(+props.data.height * +props.data.zoom - 1)+"px, "+gridColor+" "+(+props.data.width * +props.data.zoom -1)+"px, "+gridColor+" "+(+props.data.height * +props.data.zoom)+"px)",
+            +"linear-gradient(180deg,transparent "+(+props.data.height * +props.data.zoom - 1)+"px, "+gridColor+" "+(+props.data.height * +props.data.zoom -1)+"px, "+gridColor+" "+(+props.data.height * +props.data.zoom)+"px)",
             
             backgroundSize: (+props.data.width * +props.data.zoom)+"px "+ (+props.data.height * +props.data.zoom)+"px"
  
         }; 
         
-
+        console.log(canvasGridStyle);
         
     }
     else 

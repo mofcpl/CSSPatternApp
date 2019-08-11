@@ -1,5 +1,7 @@
 
 @import '../../colors';
+@import '../../mixin';
+@import '../../fontello/css/fontello.css';
 
 #list
 {
@@ -73,18 +75,14 @@
         
         .list-item-inactive
         {
-            @extend .list-item;
-            background-color: $outer-space;
-            border-top: solid 2px adjust-color($outer-space, $lightness: +5%);
-            border-bottom: solid 2px adjust-color($outer-space, $lightness: -5%);
+            @extend .list-item;   
+            @include card-scheme($outer_space, 5%);
         }
 
         .list-item-active
         {
             @extend .list-item;
-            background-color: adjust-color($outer-space, $lightness: -10%);
-            border-top: solid 2px adjust-color($outer-space, $lightness: -15%);
-            border-bottom: solid 2px adjust-color($outer-space, $lightness: -5%);
+            @include card-scheme(adjust-color($outer-space, $lightness: -10%), -5%);
         }
     }
 }

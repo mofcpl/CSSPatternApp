@@ -19,10 +19,7 @@ module.exports =
                 use: [ 'style-loader', 
                     MiniCssExtractPlugin.loader, 
                     {
-                      loader: 'css-loader',
-                      options: {
-                        url: false,
-                      },
+                      loader: 'css-loader'
                     },
                     { loader: 'postcss-loader', options: { config: { path: 'src/postcss-config/' }}},
                     'sass-loader']
@@ -45,16 +42,12 @@ module.exports =
             },
             {
               test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-              use: [
-                {
-                  loader: 'file-loader',
-                  options: {
-                    name: './font/[name].[ext]',
-                    outputPath: 'fonts/'
-                  }
-                }
-              ]
-            }
+              loader: 'url-loader',
+              options: {
+                limit: 4096,
+                name: './fonts/[name].[ext]?[hash]', // was '/fonts/[name].[ext]?[hash]',
+              },
+            },
         ]
     },
     

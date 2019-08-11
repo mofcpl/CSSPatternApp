@@ -2,4 +2,5 @@ dist/
 node_modules/
 src/css/
 src/font/
+src/style.css
 

@@ -112,7 +112,7 @@ const Canvas = (props) =>
         repeat = "no-repeat";
     }
     
-    let CanvasStyle = {backgroundImage: backgroundImageCode, backgroundPosition: backgroundPosCode, backgroundColor: props.data.bacgroundColor, backgroundSize: backgroundSizeCode, backgroundRepeat: repeat};
+    let CanvasStyle = {backgroundImage: backgroundImageCode, backgroundPosition: backgroundPosCode, backgroundColor: props.data.backgroundColor, backgroundSize: backgroundSizeCode, backgroundRepeat: repeat};
     
     return(<div id="code-div" style={CanvasStyle}></div>);
 }

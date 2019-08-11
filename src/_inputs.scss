@@ -1,5 +1,6 @@
 
 @import 'colors';
+@import 'mixin';
 
 .control-triger
 {
@@ -59,11 +60,9 @@ input[type=number]
 select
 {
     border: 0;
-    background-color: adjust-color($outer-space, $lightness: +55%);
-    color:adjust-color($outer-space, $lightness: -15%);
-    border-bottom: solid 1px adjust-color($outer-space, $lightness: +65%);
-    border-top: solid 1px adjust-color($outer-space, $lightness: +40%);
     cursor: pointer;
+    color:adjust-color($outer-space, $lightness: -15%);
+    @include card-scheme(adjust-color($outer-space, $lightness: +55%), 10%);
 }
 
 button
@@ -72,9 +71,7 @@ button
     width: auto;
     margin: 2px 5px 2px 0px;
     border: 0;
-    background-color: $outer-space;
-    border-top: solid 2px adjust-color($outer-space, $lightness: +5%);
-    border-bottom: solid 2px adjust-color($outer-space, $lightness: -5%);
+    @include card-scheme($outer_space, 5%);
     color: adjust-color($outer-space, $lightness: +45%);
     cursor: pointer;
 }
@@ -84,9 +81,7 @@ button:hover
 }
 button:active
 {
-    background-color: adjust-color($outer-space, $lightness: -10%);
-    border-top: solid 2px adjust-color($outer-space, $lightness: -15%);
-    border-bottom: solid 2px adjust-color($outer-space, $lightness: -5%);
+    @include card-scheme(adjust-color($outer-space, $lightness: -10%), -5%);
     color: adjust-color($outer-space, $lightness: +45%);
 }
 

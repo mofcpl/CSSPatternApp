@@ -3,8 +3,6 @@ import ReactDOM from "react-dom";
 
 import style from "./list.scss";
 
-import styles from "../../css/fontello.css"
-
 const List = (props) =>
 {
     
