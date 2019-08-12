@@ -24,7 +24,8 @@ const MainProp = (props) =>
                         
                     <Buttons 
                         addLinear={props.pointer.handleAddLinear} 
-                        addRadial={props.pointer.handleAddRadial} 
+                        addRadial={props.pointer.handleAddRadial}
+                        setCicadaStripes={props.pointer.handleSetCicadaStripes}
                         setHearts={props.pointer.handleSetHearts} 
                         setBricks={props.pointer.handleSetBricks} 
                         setStairs={props.pointer.handleSetStairs} 

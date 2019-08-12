@@ -99,7 +99,7 @@ const reducer = (state = defaultState, action) =>
 
     switch(action.type)
     {
-        case UPDATE_ALL:        return Object.assign({}, action.value, {zoom: 1.0, code: "press button to generate...", grid: true, repeat: true,} );
+        case UPDATE_ALL:        return Object.assign({}, action.value, {zoom: 1.0, code: "press button to generate...", grid: false, repeat: true,} );
         case UPDATE_LINEARS:    return Object.assign({},state, {linears: action.value});
         case UPDATE_RADIALS:    return Object.assign({},state, {radials: action.value});
         case CHANGE_LAYER:      return Object.assign({},state, {selected: action.value});

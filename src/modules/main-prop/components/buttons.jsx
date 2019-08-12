@@ -21,6 +21,7 @@ const Buttons = (props) =>
                     <button onClick={props.setStairs}><img src={require("../../../img/stairs.png")}/></button>
                     <button onClick={props.setBricks}><img src={require("../../../img/bricks.png")}/></button>
                     <button onClick={props.setHearts}><img src={require("../../../img/hearts.png")}/></button>
+                    <button onClick={props.setCicadaStripes}><img src={require("../../../img/cicadaStripes.png")}/></button>
                 </div>
             </div>
         </div>
