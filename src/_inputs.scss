@@ -62,7 +62,7 @@ select
     border: 0;
     cursor: pointer;
     color:adjust-color($outer-space, $lightness: -15%);
-    @include card-scheme(adjust-color($outer-space, $lightness: +55%), 10%);
+    @include card-scheme-oposite(adjust-color($outer-space, $lightness: +55%), 10%);
 }
 
 button

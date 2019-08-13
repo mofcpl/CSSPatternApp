@@ -56,5 +56,19 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: $gold
+    color: $gold;
+
+    div
+    {
+        margin: 5px;
+        a
+        {
+            color: $gold;
+            text-decoration: none;
+            &:hover
+            {
+                color: adjust-color($gold, $lightness: -15%);
+            }
+        }
+    }
 }

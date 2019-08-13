@@ -36,10 +36,11 @@
                 width: 100%;
                 border: 0;
                 color: adjust-color($outer-space, $lightness: -15%);
-                @include card-scheme(adjust-color($outer-space, $lightness: +50%), +15%);
+                @include card-scheme-oposite(adjust-color($outer-space, $lightness: +50%), +15%);
                 overflow-y: auto;
                 box-sizing: border-box;
                 resize: none;
+                padding: 5px;
             }
         }
     }

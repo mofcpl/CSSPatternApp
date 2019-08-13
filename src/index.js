@@ -106,11 +106,12 @@ class App extends React.Component
     handleDeleteLine(LinearIndex,LineIndex)
     {
         let linears = this.props.state.linears;
+        let selected = this.props.state.selected;
         linears[LinearIndex].lines.splice(LineIndex,1);
         if(linears[LinearIndex].lines.length == 0)
         {
             linears.splice(LinearIndex,1);
-            let selected = this.props.state.selected;
+            
             if(linears.length>0)
             {
                 if(selected.index>0) selected.index -= 1;   
@@ -119,9 +120,9 @@ class App extends React.Component
             {
                 selected.type = "none";
             }
-            return{linears,selected};
         }
 
+        this.props.submitChangeLayer(selected);
         this.props.submitUpdateLinears(linears);
     }
     
@@ -166,11 +167,12 @@ class App extends React.Component
     handleDeleteRadius(radialIndex,radiusIndex)
     {
         let radials = this.props.state.radials;
+        let selected = this.props.state.selected;
         radials[radialIndex].rays.splice(radiusIndex,1);
         if(radials[radialIndex].rays.length == 0)
             {
                 radials.splice(radialIndex,1);
-                let selected = this.props.state.selected;
+                
                 if(radials.length>0)
                 {
                     if(selected.index>0) selected.index -= 1;
@@ -179,9 +181,9 @@ class App extends React.Component
                 {
                     selected.type = "none";
                 }
-                return{radials,selected};
             }
          
+        this.props.submitChangeLayer(selected); 
         this.props.submitUpdateRadials(radials); 
 
     }

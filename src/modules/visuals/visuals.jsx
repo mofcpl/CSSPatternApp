@@ -44,9 +44,9 @@ const Footer = (props) =>
 {
     return(   
         <div className="area" id="footer">
-            <div>CSSPatternApp® All rights reserved</div>
-            <div>bla bla bla</div>
-            <div>contact@csspatternapp.com</div>
+            <div><a target="_blank" href="https://github.com/mofcpl">My GitHub</a></div>
+            <div></div>
+            <div><a target="_blank" href="https://leaverou.github.io/css3patterns/">Some of the examples are from here</a></div>
         </div>
     );
 }
