@@ -582,7 +582,6 @@ class App extends React.Component
     
     handleSetWeaves()
     {
-        console.log(Weaves);
         this.props.submitUpdateAll(Weaves());
     }
     

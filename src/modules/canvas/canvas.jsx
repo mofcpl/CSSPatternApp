@@ -12,6 +12,8 @@ const Canvas = (props) =>
     let backgroundPosCode = "";
     let backgroundSizeCode = "";
     const posType = props.data.positioning;
+    let sameBackgroundSize = true;
+    let prevBackgroundSize = "";
     
 //LINEAR
     if(props.data.linears.length > 0)
@@ -24,12 +26,19 @@ const Canvas = (props) =>
                 const colorArray = hexToRgb(line.color);
                 const rgbString = "rgba("+colorArray[0]+", "+colorArray[1]+", "+colorArray[2]+", "+line.opacity/100+")";
                 
-                const vacancyLeft = "transparent "+(+line.position - +line.blur)+posType;
-                const colorLeft = rgbString+" "+line.position+posType;
-                const colorRight = rgbString+" "+(+line.position + +line.size)+posType;
-                const vacancyRight = "transparent "+(+line.position + +line.size + +line.blur)+posType;
+                const vacancyLeftPos = +line.position - +line.blur;
+                const vacancyLeft = (vacancyLeftPos <= 0) ? "" : "transparent "+vacancyLeftPos+posType+", ";
+
+                const colorLeftPos = line.position;
+                const colorLeft = (colorLeftPos <=0) ? "" : rgbString+" "+colorLeftPos+posType+", ";
+
+                const colorRightPos =  +line.position + +line.size
+                const colorRight = rgbString+" "+colorRightPos+posType+", ";
+
+                const vacancyRightPos = +line.position + +line.size + +line.blur;
+                const vacancyRight = "transparent "+vacancyRightPos+posType;
                 
-                backgroundImageCode += vacancyLeft+", "+colorLeft+", "+colorRight+", "+vacancyRight;
+                backgroundImageCode += vacancyLeft+colorLeft+colorRight+vacancyRight;
                 if(lineIndex < (linear.lines.length-1))
                 {
                     backgroundImageCode += ", ";
@@ -42,7 +51,17 @@ const Canvas = (props) =>
             })
          
             backgroundPosCode += linear.vertical+"px "+linear.horizontal+"px";
-            backgroundSizeCode += (linear.autoSize == true)? props.data.width+"px "+props.data.height+"px" : linear.width+"px "+linear.height+"px";
+            
+            const backgroundSize = (linear.autoSize == true)? props.data.width+"px "+props.data.height+"px" : linear.width+"px "+linear.height+"px";
+            backgroundSizeCode += backgroundSize;
+
+            //background-size code optimization (if all values are the same the code will contain one position)
+            if(sameBackgroundSize && prevBackgroundSize === "")
+            {
+                prevBackgroundSize = backgroundSize;
+            }
+            else if(backgroundSize !== prevBackgroundSize) sameBackgroundSize = false;
+
             
             if(linearindex < (props.data.linears.length-1))
             {
@@ -67,15 +86,24 @@ const Canvas = (props) =>
 
             radial.rays.map( (radius, radiusIndex) => 
             {
+
                 const color = hexToRgb(radius.color);
                 const rgbString = "rgba("+color[0]+", "+color[1]+", "+color[2]+", "+radius.opacity/100+")";
 
-                const vacancyLeft = "transparent "+(+radius.position - +1 - +radius.blur)+posType;
-                const colorLeft = rgbString+" "+radius.position+posType;
-                const colorRight = rgbString+" "+(+radius.position - +1 + +radius.size)+posType;
-                const vacancyRight = "transparent "+(+radius.position + +radius.size + +radius.blur)+posType;
+                const vacancyLeftPos = +radius.position - +1 - +radius.blur
+                const vacancyLeft = (vacancyLeftPos <= 0) ? "" : "transparent "+vacancyLeftPos+posType+", ";
 
-                backgroundImageCode += vacancyLeft+", "+colorLeft+", "+colorRight+", "+vacancyRight;
+                const colorLeftPos = radius.position;
+                const colorLeft = (colorLeftPos <= 0) ? "" : rgbString+" "+colorLeftPos+posType+", ";
+
+                const colorRightPos = +radius.position - +1 + +radius.size;
+                const colorRight =  rgbString+" "+colorRightPos+posType;
+
+                const vacancyRightPos = +radius.position + +radius.size + +radius.blur 
+                const vacancyRight = "transparent "+vacancyRightPos+posType;
+
+
+                backgroundImageCode += vacancyLeft+colorLeft+colorRight+vacancyRight;
 
                 if(radiusIndex < (radial.rays.length-1))
                 {
@@ -88,7 +116,16 @@ const Canvas = (props) =>
             })
             
             backgroundPosCode += radial.vertical+"px "+radial.horizontal+"px";
-            backgroundSizeCode += (radial.autoSize == true)? props.data.width+"px "+props.data.height+"px" : radial.width+"px "+radial.height+"px";
+            
+            const backgroundSize = (radial.autoSize == true)? props.data.width+"px "+props.data.height+"px" : radial.width+"px "+radial.height+"px";
+            backgroundSizeCode += backgroundSize;
+
+            //background-size code optimization
+            if(sameBackgroundSize && prevBackgroundSize === "")
+            {
+                prevBackgroundSize = backgroundSize;
+            }
+            else if(backgroundSize !== prevBackgroundSize) sameBackgroundSize = false;
 
             if(radialIndex < (props.data.radials.length-1))
             {
@@ -105,14 +142,18 @@ const Canvas = (props) =>
     
     if(props.data.repeat == true)
     {
-        repeat = "repeat";
+      //repeat = "repeat";
+        repeat = ""; //optimization
     }
     else
     {
         repeat = "no-repeat";
     }
+
+    //background-size code optimization
+    const tempBackgroundSizeCode = (sameBackgroundSize) ? prevBackgroundSize : backgroundSizeCode;
     
-    let CanvasStyle = {backgroundImage: backgroundImageCode, backgroundPosition: backgroundPosCode, backgroundColor: props.data.backgroundColor, backgroundSize: backgroundSizeCode, backgroundRepeat: repeat};
+    let CanvasStyle = {backgroundImage: backgroundImageCode, backgroundPosition: backgroundPosCode, backgroundColor: props.data.backgroundColor, backgroundSize: tempBackgroundSizeCode, backgroundRepeat: repeat};
     
     return(<div id="code-div" style={CanvasStyle}></div>);
 }
