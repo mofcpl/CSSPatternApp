@@ -7,7 +7,6 @@ import style from "./canvas.scss";
 
 const Canvas = (props) =>
 {
-    let linearGrid = "";
     let backgroundImageCode = "";
     let backgroundPosCode = "";
     let backgroundSizeCode = "";
@@ -101,7 +100,6 @@ const Canvas = (props) =>
 
                 const vacancyRightPos = +radius.position + +radius.size + +radius.blur 
                 const vacancyRight = "transparent "+vacancyRightPos+posType;
-
 
                 backgroundImageCode += vacancyLeft+colorLeft+colorRight+vacancyRight;
 
