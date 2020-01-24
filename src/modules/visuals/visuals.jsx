@@ -48,9 +48,9 @@ const Footer = (props) =>
 {
     return(   
         <div className="area" id="footer">
-            <div><a target="_blank" href="https://github.com/mofcpl">My GitHub</a></div>
-            <div></div>
-            <div><a target="_blank" href="https://leaverou.github.io/css3patterns/">Some of the examples are from here</a></div>
+            <a href="" target="_blank"><i className="icon-home" /></a>
+            <a href="https://github.com/mofcpl" target="_blank"><i className="icon-github-circled" /></a>
+            <a href="https://www.linkedin.com/in/zbrogdom/" target="_blank"><i className="icon-linkedin-squared" /></a>
         </div>
     );
 }

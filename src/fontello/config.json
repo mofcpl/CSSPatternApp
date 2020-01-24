@@ -9,13 +9,31 @@
     {
       "uid": "o1c30odwfvgcvi5b4jsg95sur8v6ghsp",
       "css": "grid",
-      "code": 59393,
+      "code": 59392,
       "src": "modernpics"
     },
     {
       "uid": "c5fd349cbd3d23e4ade333789c29c729",
       "css": "eye",
-      "code": 59392,
+      "code": 59393,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "513ac180ff85bd275f2b736720cbbf5e",
+      "css": "home",
+      "code": 59394,
+      "src": "entypo"
+    },
+    {
+      "uid": "0f6a2573a7b6df911ed199bb63717e27",
+      "css": "github-circled",
+      "code": 61595,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "1145676a91138011729fa2909997af66",
+      "css": "linkedin-squared",
+      "code": 62220,
       "src": "fontawesome"
     }
   ]

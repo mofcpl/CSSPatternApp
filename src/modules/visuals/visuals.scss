@@ -75,16 +75,17 @@
     grid-area: footer;
     padding-left: 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    flex-direction: column;
     color: $gold;
 
-    div
+    i
     {
-        margin: 5px;
-
+        font-size: 70px;
     }
+
+
+
 }
 
 a
@@ -93,6 +94,6 @@ a
     text-decoration: none;
     &:hover
     {
-        color: adjust-color($gold, $lightness: -15%);
+        color: adjust-color($gold, $lightness: -25%);
     }
 }
