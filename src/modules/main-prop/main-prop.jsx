@@ -25,6 +25,7 @@ const MainProp = (props) =>
                     <Buttons 
                         addLinear={props.pointer.handleAddLinear} 
                         addRadial={props.pointer.handleAddRadial}
+                        clone={props.pointer.handleClone}
                         setCicadaStripes={props.pointer.handleSetCicadaStripes}
                         setHearts={props.pointer.handleSetHearts} 
                         setBricks={props.pointer.handleSetBricks} 

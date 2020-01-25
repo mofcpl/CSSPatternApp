@@ -11,6 +11,7 @@ const Buttons = (props) =>
         <div id="moduleB">
             <button onClick={props.addLinear} className="control-button">add linear</button>
             <button onClick={props.addRadial} className="control-button">add radial</button>
+            <button onClick={props.clone} className="control-button">clone</button>
             <div className="dropdown">
                 <button className="control-button">examples</button>
                 <div className="dropdown-content">

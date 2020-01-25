@@ -15,6 +15,8 @@ import {CicadaStripes, Hearts, Bricks, Stairs, Shippo, Microbial, Carbon, Weaves
 
 import {store, updateAll, updateLinears, updateRadials, changeLayer, setGrid, setRepeat, setZoom, setWidth, setHeight, setBackground, setPos, generateCode} from "./redux-store.jsx"
 
+import {defaultLinear, defaultRadial} from "./defaults.js"
+
 class App extends React.Component
 {
     constructor(props)
@@ -29,6 +31,8 @@ class App extends React.Component
         this.handleAddRadial = this.handleAddRadial.bind(this);
         this.handleAddRadius = this.handleAddRadius.bind(this);
         this.handleDeleteRadius = this.handleDeleteRadius.bind(this);
+
+        this.handleClone = this.handleClone.bind(this);
         
         //LIST
         this.handleChangeLayer = this.handleChangeLayer.bind(this);
@@ -60,7 +64,6 @@ class App extends React.Component
         //GENERATE BUTTON
         this.handleGenerateButton = this.handleGenerateButton.bind(this);
         
-        
     }
     
 ////////////////////////////////////////////////////////////////////////PATTERN EDITION////////////////////////////////////////////////////////////////////////    
@@ -68,25 +71,8 @@ class App extends React.Component
 //////LINEARS
     handleAddLinear()
     {
-        let tempLine = {};
-        let tempLinear = {};
-        tempLine = {position: 0, color: "#000000", size: 5, opacity: 100, blur: 0};
-        
-        if(this.props.state.linears.length == 0)
-        {
-            
-            tempLinear = {direction: 90, width: 0, height: 0, autoSize: true, vertical: 0, horizontal: 0, visible: true, grid: "false", lines: []};
-            tempLinear.lines.push(tempLine);
-        }
-        else
-        {
-            const length =  this.props.state.linears.length;
-            tempLinear = JSON.parse(JSON.stringify(this.props.state.linears[length-1]));
-
-        }
-        
-        this.props.submitUpdateLinears([...this.props.state.linears, tempLinear]);
-        
+        console.log(defaultLinear());
+        this.props.submitUpdateLinears([...this.props.state.linears, defaultLinear()]);
     }
     
     handleAddLine(LinearIndex)
@@ -129,27 +115,8 @@ class App extends React.Component
 ////RADIALS
     
     handleAddRadial()
-    {
-        let tempRadius = {};
-        let tempRadial = {};
-        tempRadius = {position: "0", color: "#000000", size: 5, opacity: 100, blur: 0};
-        
-        if(this.props.state.radials.length == 0)
-        {
-            
-            tempRadial = {shape: "ellipse ", autoSize: true, size: "farthest-corner", posx: 50, posy: 50, vertical: 0, horizontal: 0, visible: true, grid: false, rays: []};
-            tempRadial.rays.push(tempRadius);
-        }
-        else
-        {
-            const length =  this.props.state.radials.length;
-            tempRadial = JSON.parse(JSON.stringify(this.props.state.radials[length-1]));
-
-        }
-        
-        
-        //this.setState({radials: [...this.props.state.radials, tempRadial]});
-        this.props.submitUpdateRadials([...this.props.state.radials, tempRadial]);
+    {     
+        this.props.submitUpdateRadials([...this.props.state.radials, defaultRadial()]);
     }
     
     handleAddRadius(RadialIndex)
@@ -182,10 +149,36 @@ class App extends React.Component
                     selected.type = "none";
                 }
             }
-         
-        this.props.submitChangeLayer(selected); 
-        this.props.submitUpdateRadials(radials); 
+        
+        this.props.submitChangeLayer(selected);
+        this.props.submitUpdateRadials(radials);
 
+    }
+
+    //CLONE
+
+    handleClone()
+    {
+        
+        const index = this.props.state.selected.index;
+
+        switch(this.props.state.selected.type)
+        {
+            case "radial":
+            {
+                const tempRadial = JSON.parse(JSON.stringify(this.props.state.radials[index]));
+                this.props.submitUpdateRadials([...this.props.state.radials, tempRadial]);
+                break;
+            }
+            case "linear":
+            {
+                const tempLinear = JSON.parse(JSON.stringify(this.props.state.linears[index]));
+                this.props.submitUpdateLinears([...this.props.state.linears, tempLinear]);
+                break;
+            }
+            default: break;
+        }
+        
     }
 
 ////////////////////////////////////////////////////////////////////////LIST///////////////////////////////////////////////////////////////////////////////////
