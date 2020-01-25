@@ -584,16 +584,16 @@ const Weaves = () =>
                 {
                     position: 22,
                     color: "#d9ecff",
-                    size: 2,
+                    size: 1,
                     opacity: 100,
-                    blur: 0
+                    blur: 1
                 },
                 {
                     position: 67,
                     color: "#d9ecff",
-                    size: 2,
+                    size: 1,
                     opacity: 100,
-                    blur: 0
+                    blur: 1
                 }
             ]
             
