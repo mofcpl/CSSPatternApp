@@ -1,12 +1,14 @@
 @import 'colors';
 @import 'mixin';
+@import 'media-queries';
+
 
 body
 {
     font-family: 'Roboto', sans-serif; 
     background-color:  $charleston-green;
     margin: 0;
-    padding: 0; 
+    padding: 0;
 }
 
 #container
@@ -14,8 +16,8 @@ body
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: 25% auto 20% 12%;
-    grid-template-rows: 15% 5% 10% 40% 10% 20%;
+    grid-template-columns: 5fr 10fr 4fr 3fr;
+    grid-template-rows: 3fr 1fr 2fr 8fr 2fr 4fr;
     grid-template-areas: 
         "logo links main-prop main-prop"
         "ads ads main-prop main-prop"
@@ -60,3 +62,49 @@ body
     border-bottom-right-radius: 10px;
 
 }
+
+@media (max-width: 1024px) 
+{
+    #container
+    {
+        grid-template-columns: 5fr 10fr 4fr 3fr;
+        grid-template-rows: 3fr 1fr 4fr 2fr 8fr 2fr 4fr 4fr;
+        grid-template-areas: 
+            "logo links links links"
+            "ads ads ads ads"
+            "main-prop main-prop main-prop main-prop"
+            "prop prop prop prop"
+            "canvas canvas list list"
+            "canvas canvas list list"
+            "code code code code"
+            "footer footer footer footer"; 
+    }
+
+    #prop, #links, #main-prop, #list
+    {
+        padding-right: 5px !important;
+    }
+}
+
+
+::-webkit-scrollbar 
+{
+    width: 1vw;
+}
+
+::-webkit-scrollbar-track 
+{
+    background: $outer-space;
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar-thumb 
+{
+    background: $arsenic; 
+}
+
+::-webkit-scrollbar-thumb:hover 
+{
+    background: $arsenic; 
+}
+

@@ -45,7 +45,7 @@
 
         #adfly
         {
-            width: 728px; 
+            
             text-align: center; 
             font-family: verdana; 
             font-size: 10px;
@@ -53,8 +53,8 @@
 
             img 
             {
-                width: 728px ;
-                height: 90px; 
+                width: 100% ;
+                height: auto; 
             }
         }
     }
@@ -83,9 +83,6 @@
     {
         font-size: 70px;
     }
-
-
-
 }
 
 a
