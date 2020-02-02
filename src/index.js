@@ -33,6 +33,8 @@ class App extends React.Component
         this.handleDeleteRadius = this.handleDeleteRadius.bind(this);
 
         this.handleClone = this.handleClone.bind(this);
+        this.handleSave = this.handleSave.bind(this);
+        this.handleLoad = this.handleLoad.bind(this);
         
         //LIST
         this.handleChangeLayer = this.handleChangeLayer.bind(this);
@@ -155,7 +157,7 @@ class App extends React.Component
 
     }
 
-    //CLONE
+    //OTHERS
 
     handleClone()
     {
@@ -178,6 +180,20 @@ class App extends React.Component
             }
             default: break;
         }
+        
+    }
+
+    handleSave()
+    {
+        console.log("save");
+        localStorage.setItem("pattern",JSON.stringify(this.props.state));
+    }
+
+    handleLoad()
+    {
+        console.log("load");
+        const loadedObject = localStorage.getItem("pattern");
+        if (loadedObject) this.props.submitUpdateAll(JSON.parse(loadedObject));
         
     }
 
@@ -599,7 +615,12 @@ class App extends React.Component
             
             <MainProp data={this.props.state} pointer={this} />
             <List data={this.props.state} handleChangeLayer={this.handleChangeLayer} handleVisibility={this.handleSetVisibility} handleGrid={this.handleSetGrid}/>
-            <Properties handleChange={this.handleChangeInput} data={this.props.state} addLine={this.handleAddLine} deleteLine={this.handleDeleteLine} addRadius={this.handleAddRadius} deleteRadius={this.handleDeleteRadius}/>
+            <Properties handleChange={this.handleChangeInput} 
+                        data={this.props.state} 
+                        addLine={this.handleAddLine} 
+                        deleteLine={this.handleDeleteLine} 
+                        addRadius={this.handleAddRadius} 
+                        deleteRadius={this.handleDeleteRadius}/>
             
             <Preview data={this.props.state} />
             <Canvas data={this.props.state} />

@@ -89,6 +89,7 @@ a
 {
     color: $gold;
     text-decoration: none;
+    text-align: center;
     &:hover
     {
         color: adjust-color($gold, $lightness: -25%);

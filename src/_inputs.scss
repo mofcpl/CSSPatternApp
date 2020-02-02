@@ -68,7 +68,7 @@ select
 button
 {
     height: 40px;
-    width: auto;
+    width: 75px;
     margin: 2px 5px 2px 0px;
     border: 0;
     @include card-scheme($outer_space, 5%);
