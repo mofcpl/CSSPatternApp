@@ -34,11 +34,11 @@ const Ads = (props) =>
     return(   
         <div className="area" id="ads">
 
-                <a href="http://greponozy.com/1RsW" target="_blank">Css tricks</a>
-                <a href="http://greponozy.com/1Rzl" target="_blank">Patterns gallery</a>
-                <a href="http://greponozy.com/1SCz" target="_blank">Color palettes</a>
-                <a href="http://greponozy.com/1SPu" target="_blank">Front-end tutorials</a>
-                <a href="http://greponozy.com/1SSM" target="_blank">Palette generator</a>
+            <a href="http://greponozy.com/1RsW" target="_blank">Css tricks</a>
+            <a href="http://greponozy.com/1Rzl" target="_blank">Patterns gallery</a>
+            <a href="http://greponozy.com/1SCz" target="_blank">Color palettes</a>
+            <a href="http://greponozy.com/1SPu" target="_blank">Front-end tutorials</a>
+            <a href="http://greponozy.com/1SSM" target="_blank">Palette generator</a>
     
         </div>
     );

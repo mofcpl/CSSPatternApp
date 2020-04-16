@@ -26,16 +26,6 @@ const MainProp = (props) =>
                         addLinear={props.pointer.handleAddLinear} 
                         addRadial={props.pointer.handleAddRadial}
                         clone={props.pointer.handleClone}
-                        save={props.pointer.handleSave}
-                        load={props.pointer.handleLoad}
-                        setCicadaStripes={props.pointer.handleSetCicadaStripes}
-                        setHearts={props.pointer.handleSetHearts} 
-                        setBricks={props.pointer.handleSetBricks} 
-                        setStairs={props.pointer.handleSetStairs} 
-                        setShippo={props.pointer.handleSetShippo} 
-                        setMicrobial={props.pointer.handleSetMicrobial} 
-                        setWeaves={props.pointer.handleSetWeaves} 
-                        setCarbon={props.pointer.handleSetCarbon}
                     />
             </div>
         </div>

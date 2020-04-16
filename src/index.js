@@ -11,7 +11,6 @@ import {Properties} from "./modules/properties/properties.jsx"
 import {Preview} from "./modules/preview/preview.jsx"
 import {Canvas} from "./modules/canvas/canvas.jsx"
 import {Code} from "./modules/code/code.jsx"
-import {CicadaStripes, Hearts, Bricks, Stairs, Shippo, Microbial, Carbon, Weaves} from "./examples.js"
 
 import {store, updateAll, updateLinears, updateRadials, changeLayer, setGrid, setRepeat, setZoom, setWidth, setHeight, setBackground, setPos, generateCode} from "./redux-store.jsx"
 
@@ -33,8 +32,6 @@ class App extends React.Component
         this.handleDeleteRadius = this.handleDeleteRadius.bind(this);
 
         this.handleClone = this.handleClone.bind(this);
-        this.handleSave = this.handleSave.bind(this);
-        this.handleLoad = this.handleLoad.bind(this);
         
         //LIST
         this.handleChangeLayer = this.handleChangeLayer.bind(this);
@@ -52,17 +49,7 @@ class App extends React.Component
         
         //INPUT HANDLE
         this.handleChangeInput = this.handleChangeInput.bind(this);
-        
-        //EXAMPLES
-        this.handleSetCicadaStripes = this.handleSetCicadaStripes.bind(this);
-        this.handleSetHearts = this.handleSetHearts.bind(this);
-        this.handleSetBricks = this.handleSetBricks.bind(this);
-        this.handleSetStairs = this.handleSetStairs.bind(this);
-        this.handleSetMicrobial = this.handleSetMicrobial.bind(this);
-        this.handleSetWeaves = this.handleSetWeaves.bind(this);
-        this.handleSetCarbon = this.handleSetCarbon.bind(this);
-        this.handleSetShippo = this.handleSetShippo.bind(this);
-        
+           
         //GENERATE BUTTON
         this.handleGenerateButton = this.handleGenerateButton.bind(this);
         
@@ -180,20 +167,6 @@ class App extends React.Component
             }
             default: break;
         }
-        
-    }
-
-    handleSave()
-    {
-        console.log("save");
-        localStorage.setItem("pattern",JSON.stringify(this.props.state));
-    }
-
-    handleLoad()
-    {
-        console.log("load");
-        const loadedObject = localStorage.getItem("pattern");
-        if (loadedObject) this.props.submitUpdateAll(JSON.parse(loadedObject));
         
     }
 
