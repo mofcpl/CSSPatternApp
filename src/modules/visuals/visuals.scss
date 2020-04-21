@@ -60,15 +60,7 @@
     }
 }
 
-#ads
-{
-    grid-area: ads;
-    padding-left: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    color: $gold
-}
+
 
 #footer
 {
@@ -85,13 +77,3 @@
     }
 }
 
-a
-{
-    color: $gold;
-    text-decoration: none;
-    text-align: center;
-    &:hover
-    {
-        color: adjust-color($gold, $lightness: -25%);
-    }
-}

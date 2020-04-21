@@ -19,12 +19,13 @@ body
     grid-template-rows: 3fr 1fr 2fr 8fr 2fr 4fr;
     grid-template-areas: 
         "logo links main-prop main-prop"
-        "ads ads main-prop main-prop"
+        "management management main-prop main-prop"
         "canvas canvas main-prop main-prop"
         "canvas canvas prop list"
         "canvas canvas prop list"
         "code code footer footer"; 
 }
+
 
 .area
 {
@@ -72,7 +73,7 @@ body
         grid-template-rows: 1fr 3fr 4fr 6fr 6fr 4fr 4fr;
         grid-template-areas: 
             "logo links links links"
-            "ads ads ads ads"
+            "management management management management"
             "main-prop main-prop main-prop main-prop"
             "prop prop prop prop"
             "canvas canvas list list"
@@ -83,6 +84,41 @@ body
     #prop, #links, #main-prop, #list
     {
         padding-right: 5px !important;
+    }
+}
+
+
+#container-window
+{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.window
+{
+    padding: 20px 50px 20px 50px;
+    @include card-scheme($aurometalsaurus, 10%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+
+
+    input, label {
+        display:block;
+        margin: 5px;
+    }
+
+    button 
+    {
+        width: 100%;
     }
 }
 
@@ -107,4 +143,6 @@ body
 {
     background: $arsenic; 
 }
+
+
 

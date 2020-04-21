@@ -4,13 +4,20 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { Provider, connect } from 'react-redux'
 
-import {Logo, Links, Ads, Footer} from "./modules/visuals/visuals.jsx"
+import {Logo, Links, Footer} from "./modules/visuals/visuals.jsx"
 import {MainProp} from "./modules/main-prop/main-prop.jsx"
+import {Management} from "./modules/management/management.jsx"
 import {List} from "./modules/list/list.jsx"
 import {Properties} from "./modules/properties/properties.jsx"
 import {Preview} from "./modules/preview/preview.jsx"
 import {Canvas} from "./modules/canvas/canvas.jsx"
 import {Code} from "./modules/code/code.jsx"
+import {SignIn} from "./modules/sign-in/sign-in.jsx"
+import {SignUp} from "./modules/sign-up/sign-up.jsx"
+import {Publish} from "./modules/publish/publish.jsx"
+import {Account} from "./modules/account/account.jsx"
+import {Explore} from "./modules/explore/explore.jsx"
+require("babel-polyfill");
 
 import {store, updateAll, updateLinears, updateRadials, changeLayer, setGrid, setRepeat, setZoom, setWidth, setHeight, setBackground, setPos, generateCode} from "./redux-store.jsx"
 
@@ -22,6 +29,11 @@ class App extends React.Component
     {
         super(props);
         
+        this.state =
+        {
+            view: "MAIN" //EXPLORE PUBLISH SIGNUP SIGNIN
+        }
+
         //PATTERN EDITION
         this.handleAddLinear = this.handleAddLinear.bind(this);
         this.handleAddLine = this.handleAddLine.bind(this);
@@ -49,18 +61,37 @@ class App extends React.Component
         
         //INPUT HANDLE
         this.handleChangeInput = this.handleChangeInput.bind(this);
+
+        //MANAGEMENT
+
+        
+        this.updateAccountData = this.updateAccountData.bind(this);
+        this.signIn = this.signIn.bind(this);
+        this.signOut = this.signOut.bind(this);
+        this.resetPassword = this.resetPassword.bind(this);
+        this.signUp = this.signUp.bind(this);
+        this.publishPattern = this.publishPattern.bind(this);
+        this.loadAllPatterns = this.loadAllPatterns.bind(this);
+        this.loadPattern = this.loadPattern.bind(this);
            
         //GENERATE BUTTON
         this.handleGenerateButton = this.handleGenerateButton.bind(this);
+
+        //VIEWS
+        this.accountView = this.accountView.bind(this);
+        this.changeView = this.changeView.bind(this);
+        this.mainView = this.mainView.bind(this);
+        this.exploreView = this.exploreView.bind(this);
+        this.publishView = this.publishView.bind(this);
+        this.signUpView = this.signUpView.bind(this);
+        this.signInView = this.signInView.bind(this);
         
     }
-    
 ////////////////////////////////////////////////////////////////////////PATTERN EDITION////////////////////////////////////////////////////////////////////////    
     
 //////LINEARS
     handleAddLinear()
     {
-        console.log(defaultLinear());
         this.props.submitUpdateLinears([...this.props.state.linears, defaultLinear()]);
     }
     
@@ -524,48 +555,48 @@ class App extends React.Component
         }
         
     }
-    
-////////////////////////////////////////////////////////////////////////EXAMPLES///////////////////////////////////////////////////////////////////////////////
-    handleSetCicadaStripes()
-    {
-        this.props.submitUpdateAll(CicadaStripes());
-    }
 
-    handleSetHearts()
-    {   
-        this.props.submitUpdateAll(Hearts());
-    }
+////////////////////////////////////////////////////////////////////////MANAGEMENT////////////////////////////////////////////////////////////////////////
     
-    handleSetBricks()
-    {
-        this.props.submitUpdateAll(Bricks());
-    }
+        updateAccountData()
+        {
 
-    handleSetStairs()
-    {
-        this.props.submitUpdateAll(Stairs());
-    }
-    
-    handleSetShippo()
-    {
-        this.props.submitUpdateAll(Shippo());
-    }
-    
-    handleSetMicrobial()
-    {
-        this.props.submitUpdateAll(Microbial());
-    }
-    
-    
-    handleSetCarbon()
-    {
-        this.props.submitUpdateAll(Carbon());
-    }
-    
-    handleSetWeaves()
-    {
-        this.props.submitUpdateAll(Weaves());
-    }
+        }
+
+        signIn()
+        {
+
+        }
+
+        signOut()
+        {
+
+        }
+
+        resetPassword()
+        {
+
+        }
+
+        signUp()
+        {
+
+        }
+
+        publishPattern()
+        {
+
+        }
+
+        loadAllPatterns()
+        {
+
+        }
+
+        loadPattern(id)
+        {
+
+        }
     
 ////////////////////////////////////////////////////////////////////////GENERATE BUTTON////////////////////////////////////////////////////////////////////////
     
@@ -573,18 +604,71 @@ class App extends React.Component
     {
         const selector = document.querySelector("#code-div");
         const text = selector.style.cssText;
+        console.log(selector.style)
         this.props.submitGenerateCode(text);
     }
     
     
-////////////////////////////////////////////////////////////////////////RENDER/////////////////////////////////////////////////////////////////////////////////  
-    
-    
-    render()
+////////////////////////////////////////////////////////////////////////VIEWS///////////////////////////////////////////////////////////////////////////////// 
+
+    changeView(view)
+    {
+       console.log('Change view')
+        this.setState({view});
+    }
+
+    accountView()
     {
         return(
-        
-        <div id="container">
+            <div id="container-window">
+                <Account handleUpdate={this.updateAccountData}/>
+            </div>
+        )
+    }
+
+    exploreView()
+    {
+
+        this.loadAllPatterns();
+
+        return(
+            <div id="container-window">
+                <Explore handleLoad={this.loadPattern}/>
+            </div>
+        )
+    }
+
+    publishView()
+    {
+        return(
+            <div id="container-window">
+                <Publish handlePublish={this.publishPattern}/>
+            </div>
+        )
+    }
+
+    signUpView()
+    {
+        return(
+            <div id="container-window">
+                <SignUp handleSignUp={this.signUp}/>
+            </div> 
+        )
+    }
+
+    signInView()
+    {
+        return(
+            <div id="container-window">
+                <SignIn handleSignIn={this.signIn} handleSignOut={this.signOut} handleReset={this.resetPassword}/>
+            </div>
+        )
+    }
+
+    mainView()
+    {
+        return(
+            <div id="container">
             
             <MainProp data={this.props.state} pointer={this} />
             <List data={this.props.state} handleChangeLayer={this.handleChangeLayer} handleVisibility={this.handleSetVisibility} handleGrid={this.handleSetGrid}/>
@@ -594,18 +678,35 @@ class App extends React.Component
                         deleteLine={this.handleDeleteLine} 
                         addRadius={this.handleAddRadius} 
                         deleteRadius={this.handleDeleteRadius}/>
-            
             <Preview data={this.props.state} />
             <Canvas data={this.props.state} />
             
             <Logo />
             <Links />
-            <Ads />
+            <Management handleChange={this.changeView}/>
             <Footer />
             <Code handle={this.handleGenerateButton} code={this.props.state.code} />
         
         </div>
-        );
+        )
+    }
+    
+
+////////////////////////////////////////////////////////////////////////RENDER/////////////////////////////////////////////////////////////////////////////////  
+    
+    
+    render()
+    {
+        switch(this.state.view)
+        {
+            case "ACCOUNT": return this.accountView();
+            case "EXPLORE": return this.exploreView();
+            case "PUBLISH": return this.publishView();
+            case "SIGNUP": return this.signUpView();
+            case "SIGNIN": return this.signInView();
+            case "MAIN": return this.mainView();
+            default: return this.mainView();
+        }
 
     }
 }

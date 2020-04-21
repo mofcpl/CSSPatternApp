@@ -76,7 +76,6 @@ const Canvas = (props) =>
     
     if(props.data.radials.length > 0)
     {
-        
         if(backgroundImageCode != "") backgroundImageCode += ", ";
 
         props.data.radials.map( (radial, radialIndex) =>
@@ -96,7 +95,7 @@ const Canvas = (props) =>
                 const colorLeft = (colorLeftPos <= 0) ? "" : rgbString+" "+colorLeftPos+posType+", ";
 
                 const colorRightPos = +radius.position - +1 + +radius.size;
-                const colorRight =  rgbString+" "+colorRightPos+posType;
+                const colorRight =  rgbString+" "+colorRightPos+posType+", ";
 
                 const vacancyRightPos = +radius.position + +radius.size + +radius.blur 
                 const vacancyRight = "transparent "+vacancyRightPos+posType;
@@ -151,8 +150,10 @@ const Canvas = (props) =>
     //background-size code optimization
     const tempBackgroundSizeCode = (sameBackgroundSize) ? prevBackgroundSize : backgroundSizeCode;
     
+
     let CanvasStyle = {backgroundImage: backgroundImageCode, backgroundPosition: backgroundPosCode, backgroundColor: props.data.backgroundColor, backgroundSize: tempBackgroundSizeCode, backgroundRepeat: repeat};
-    
+
+    console.log(backgroundImageCode);
     return(<div id="code-div" style={CanvasStyle}></div>);
 }
 

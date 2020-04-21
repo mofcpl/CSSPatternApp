@@ -23,7 +23,7 @@ const defaultLinear = () =>
 const defaultRadial = () =>
 {
     return {
-        shape: "ellipse ", 
+        shape: "ellipse", 
         autoSize: true, 
         size: "farthest-corner", 
         posx: 50, 
@@ -41,7 +41,6 @@ const defaultRadial = () =>
         }
     ]}
 }
-
 
 
 export {defaultLinear, defaultRadial}

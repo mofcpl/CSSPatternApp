@@ -55,6 +55,30 @@ input[type=number]
     border-bottom: solid 1px #f1f2f4;
     border-top: solid 1px #a9afbc;
 }
+input[type=text]
+{
+    margin: 0px 3px;
+    width: 200px;
+    height: 30px;
+    border-bottom: solid 1px #f1f2f4;
+    border-top: solid 1px #a9afbc;
+}
+input[type=password]
+{
+    margin: 0px 3px;
+    width: 200px;
+    height: 30px;
+    border-bottom: solid 1px #f1f2f4;
+    border-top: solid 1px #a9afbc;
+}
+input[type=email]
+{
+    margin: 0px 3px;
+    width: 200px;
+    height: 30px;
+    border-bottom: solid 1px #f1f2f4;
+    border-top: solid 1px #a9afbc;
+}
 select
 {
     border: 0;
@@ -96,4 +120,15 @@ textarea:focus, input:focus, select:focus
 input[type="number"]:disabled 
 {
   color: adjust-color($outer-space, $lightness: +45%);
+}
+
+a
+{
+    color: $gold;
+    text-decoration: none;
+    text-align: center;
+    &:hover
+    {
+        color: adjust-color($gold, $lightness: -25%);
+    }
 }
