@@ -3,4 +3,5 @@ node_modules/
 src/css/
 src/fontello/
 src/style.css
-
+config.js
+public/

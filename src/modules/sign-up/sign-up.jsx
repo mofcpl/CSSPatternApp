@@ -15,36 +15,53 @@ class SignUp extends React.Component
             email: "",
             password: "",
             repeat: "",
-            pswdEqual: true
+            warning: false,
+            warningMsg: "",
+            done: false
         }
 
         this.handleInput = this.handleInput.bind(this);
-        
+        this.register = this.register.bind(this);
     }
 
     async register()
     {
-        if(this.state.password === this.state.repeat)
+        if(this.state.password.length >= 8)
         {
-
-            this.setState({pswdEqual: true})
-
-            const response = await fetch("http://localhost:3000/signup", 
+            if(this.state.password === this.state.repeat)
             {
-                headers: {"Content-type": "application/json; charset=UTF-8"},
-                method: "post", 
-                body: JSON.stringify({
-                    name: this.state.name,
-                    email: this.state.email,
-                    password: this.state.password
-                })
-            });
-            
-            //const data = await response.json();
+
+                this.setState({warning: false})
+
+                const response = await fetch("http://localhost:3000/signup", 
+                {
+                    headers: {"Content-type": "application/json; charset=UTF-8"},
+                    method: "post", 
+                    body: JSON.stringify({
+                        name: this.state.name,
+                        email: this.state.email,
+                        password: this.state.password
+                    })
+                });
+                
+                const data = await response.json();
+                if(data.error)
+                {
+                    this.setState({warning: true, warningMsg: data.msg});
+                }
+                else
+                {
+                    this.setState({done: true})
+                }
+            }
+            else
+            {
+                this.setState({warning: true, warningMsg: "Passwords are not equal"});
+            }
         }
         else
         {
-            this.setState({pswdEqual: false})
+            this.setState({warning: true, warningMsg: "Passwords must be minimum 8 characters"});
         }
 
     }
@@ -86,8 +103,8 @@ class SignUp extends React.Component
 
     render()
     {
-        return(   
-            <div className="window">
+        const registration = (
+            
     
                 <form onSubmit={ () => this.handleInput("BUTTON",event)}>
                 <p>
@@ -107,13 +124,27 @@ class SignUp extends React.Component
                     <input onChange={ (event) => {this.handleInput("REPEAT", event)}} value={this.state.repeat} type="password" required></input>
                 </p>
                 {
-                    (!this.state.pswdEqual) ? <p class="warning"> passwords not matching </p> : ""
+                    (this.state.warning) ? <p class="warning"> {this.state.warningMsg} </p> : ""
                 }
                 <button type="submit">Sign up</button>
+                <button onClick = { () => {this.props.handleChange("MAIN")}}>cancel</button>
                 </form>
         
-            </div>
         );
+
+        const succesfull = (
+            <p>
+                <label>Account was succesfully registered and email with activation link was send to {this.state.email} </label>
+                <button onClick = { () => {this.props.handleChange("MAIN")}}>ok</button>
+            </p>
+        )
+
+        return (
+            <div className="window">
+                {(this.state.done) ? succesfull : registration}
+            </div>
+        )
+ 
     }
     
 }

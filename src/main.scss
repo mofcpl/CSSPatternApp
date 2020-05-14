@@ -110,15 +110,21 @@ body
     text-align: center;
 
 
-
     input, label {
         display:block;
-        margin: 5px;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 
     button 
     {
         width: 100%;
+        max-width: 200px;
+    }
+
+    p
+    {
+
     }
 }
 

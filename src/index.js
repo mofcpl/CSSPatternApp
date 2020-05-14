@@ -31,7 +31,9 @@ class App extends React.Component
         
         this.state =
         {
-            view: "MAIN" //EXPLORE PUBLISH SIGNUP SIGNIN
+            view: "MAIN", //EXPLORE PUBLISH SIGNUP SIGNIN
+            logged: false,
+            userName: ""
         }
 
         //PATTERN EDITION
@@ -63,15 +65,8 @@ class App extends React.Component
         this.handleChangeInput = this.handleChangeInput.bind(this);
 
         //MANAGEMENT
-
-        
-        this.updateAccountData = this.updateAccountData.bind(this);
         this.signIn = this.signIn.bind(this);
         this.signOut = this.signOut.bind(this);
-        this.resetPassword = this.resetPassword.bind(this);
-        this.signUp = this.signUp.bind(this);
-        this.publishPattern = this.publishPattern.bind(this);
-        this.loadAllPatterns = this.loadAllPatterns.bind(this);
         this.loadPattern = this.loadPattern.bind(this);
            
         //GENERATE BUTTON
@@ -87,9 +82,13 @@ class App extends React.Component
         this.signInView = this.signInView.bind(this);
         
     }
-////////////////////////////////////////////////////////////////////////PATTERN EDITION////////////////////////////////////////////////////////////////////////    
-    
-//////LINEARS
+
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////PATTERN EDITION////////////////////////////////////////////////////////////////////////    
+    //////LINEARS
     handleAddLinear()
     {
         this.props.submitUpdateLinears([...this.props.state.linears, defaultLinear()]);
@@ -558,45 +557,22 @@ class App extends React.Component
 
 ////////////////////////////////////////////////////////////////////////MANAGEMENT////////////////////////////////////////////////////////////////////////
     
-        updateAccountData()
+        signIn(name)
         {
-
+            this.setState({logged: true, userName: name})
         }
 
-        signIn()
+        async signOut()
         {
-
+            const response = await fetch("http://localhost:3000/signout");
+            this.setState({logged: false, userName: ""});
         }
 
-        signOut()
+        loadPattern(pattern)
         {
-
+            this.props.submitUpdateAll(pattern);
         }
 
-        resetPassword()
-        {
-
-        }
-
-        signUp()
-        {
-
-        }
-
-        publishPattern()
-        {
-
-        }
-
-        loadAllPatterns()
-        {
-
-        }
-
-        loadPattern(id)
-        {
-
-        }
     
 ////////////////////////////////////////////////////////////////////////GENERATE BUTTON////////////////////////////////////////////////////////////////////////
     
@@ -604,7 +580,6 @@ class App extends React.Component
     {
         const selector = document.querySelector("#code-div");
         const text = selector.style.cssText;
-        console.log(selector.style)
         this.props.submitGenerateCode(text);
     }
     
@@ -613,7 +588,6 @@ class App extends React.Component
 
     changeView(view)
     {
-       console.log('Change view')
         this.setState({view});
     }
 
@@ -621,7 +595,7 @@ class App extends React.Component
     {
         return(
             <div id="container-window">
-                <Account handleUpdate={this.updateAccountData}/>
+                <Account handleUpdate={this.updateAccountData} handleChange={this.changeView}/>
             </div>
         )
     }
@@ -629,20 +603,19 @@ class App extends React.Component
     exploreView()
     {
 
-        this.loadAllPatterns();
 
         return(
             <div id="container-window">
-                <Explore handleLoad={this.loadPattern}/>
+                <Explore  handleLoad={this.loadPattern} handleChange={this.changeView}/>
             </div>
         )
     }
 
-    publishView()
+    publishView(style)
     {
         return(
             <div id="container-window">
-                <Publish handlePublish={this.publishPattern}/>
+                <Publish projectStyle={style} pattern={this.props.state} handlePublish={this.publishPattern} handleChange={this.changeView}/>
             </div>
         )
     }
@@ -651,7 +624,7 @@ class App extends React.Component
     {
         return(
             <div id="container-window">
-                <SignUp handleSignUp={this.signUp}/>
+                <SignUp handleChange={this.changeView} />
             </div> 
         )
     }
@@ -660,7 +633,7 @@ class App extends React.Component
     {
         return(
             <div id="container-window">
-                <SignIn handleSignIn={this.signIn} handleSignOut={this.signOut} handleReset={this.resetPassword}/>
+                <SignIn handleChange={this.changeView} handleSignIn={this.signIn}/>
             </div>
         )
     }
@@ -683,7 +656,7 @@ class App extends React.Component
             
             <Logo />
             <Links />
-            <Management handleChange={this.changeView}/>
+            <Management handleSignOut={this.signOut} name={this.state.userName} isLogged={this.state.logged} handleChange={this.changeView}/>
             <Footer />
             <Code handle={this.handleGenerateButton} code={this.props.state.code} />
         
@@ -701,7 +674,17 @@ class App extends React.Component
         {
             case "ACCOUNT": return this.accountView();
             case "EXPLORE": return this.exploreView();
-            case "PUBLISH": return this.publishView();
+            case "PUBLISH": 
+            {
+                const selectorStyle = document.querySelector("#code-div").style;
+
+                return this.publishView({
+                    backgroundImage: selectorStyle.backgroundImage, 
+                    backgroundPosition: selectorStyle.backgroundPosition, 
+                    backgroundColor: selectorStyle.backgroundColor, 
+                    backgroundSize: selectorStyle.backgroundSize
+                })
+            }
             case "SIGNUP": return this.signUpView();
             case "SIGNIN": return this.signInView();
             case "MAIN": return this.mainView();

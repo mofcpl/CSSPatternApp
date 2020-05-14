@@ -6,15 +6,25 @@ import style from "./management.scss";
 const Management = (props) =>
 {
 
-    const dupa ="";
+    let buttonA, buttonB;
 
+    if(!props.isLogged)
+    {
+        buttonA = <a onClick = { () => {props.handleChange("SIGNIN")}}>Sign in</a>;
+        buttonB = <a onClick = { () => {props.handleChange("SIGNUP")}}>Sign up</a>;
+    }
+    else
+    {
+        buttonA = <a onClick = {props.handleSignOut}>Sign out</a>;
+        buttonB = <a onClick = { () => {props.handleChange("ACCOUNT")}}>{props.name}</a>;
+    }
+    
     return(   
         <div className="area" id="management">
             <a onClick = { () => {props.handleChange("EXPLORE")}}>Explore projects</a>
             <a onClick = { () => {props.handleChange("PUBLISH")}}>Publish project</a>
-            <a onClick = { () => {props.handleChange("SIGNUP")}}>Sign up</a>
-            <a onClick = { () => {props.handleChange("SIGNIN")}}>Sign in</a>
-            <a onClick = { () => {props.handleChange("ACCOUNT")}}>Account</a>
+            {buttonA}
+            {buttonB}
         </div>
     );
 }
