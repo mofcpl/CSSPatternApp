@@ -35,7 +35,7 @@ class Explore extends React.Component
 
         this.setState({warning: false})
 
-        const response = await fetch("https://csspatternapp.pl:3000/download", 
+        const response = await fetch("https://csspatternapp.pl/download", 
         {
             headers: {"Content-type": "application/json; charset=UTF-8"},
             method: "post", 
@@ -59,7 +59,7 @@ class Explore extends React.Component
         
         this.setState({warning: false})
 
-        const response = await fetch("https://csspatternapp.pl:3000/delete", 
+        const response = await fetch("https://csspatternapp.pl/delete", 
         {
             headers: {"Content-type": "application/json; charset=UTF-8"},
             method: "post", 
@@ -157,7 +157,7 @@ class Explore extends React.Component
 
     componentDidMount()
     {
-        fetch("http://localhost:3000/explore")
+        fetch("https://csspatternapp.pl/explore")
         .then(data => data.json())
         .then(data => 
         {

@@ -19,7 +19,7 @@ db.once('open', function() {
 
 var indexRouter = require('./routes/index');
 var activateRouter = require('./routes/activate');
-var signUpRouter = require('./routes/signUp');
+var signUpRouter = require('./routes/signup');
 var signInRouter = require('./routes/signin');
 var signOutRouter = require('./routes/signout');
 var dataRouter = require('./routes/data');
