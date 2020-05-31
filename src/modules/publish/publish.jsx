@@ -35,7 +35,7 @@ class Publish extends React.Component
 
             //console.log(this.props.projectStyle);
             
-            const response = await fetch("http://localhost:3000/publish", 
+            const response = await fetch("https://csspatternapp.pl:3000/publish", 
             {
                 headers: {"Content-type": "application/json; charset=UTF-8"},
                 method: "post", 
