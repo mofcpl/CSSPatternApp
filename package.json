@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "buildClient": "rmdir /s /q public && webpack --mode production &&  webpack --mode development --config webpack.config.js",
+    "buildClientLinux": "rm -rf public && webpack --mode production &&  webpack --mode development --config webpack.config.js",
     "onlyClient": "webpack-dev-server --mode development --open",
     "server": "nodemon ./bin/www",
     "install-fontello": "fontello-cli install --css ./src/fontello/css --font ./src/fontello/font",
