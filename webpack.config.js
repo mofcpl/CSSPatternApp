@@ -5,7 +5,11 @@ module.exports =
 {
 
     entry: ['babel-polyfill', './src/index.js'],
-    output: {path: path.resolve(__dirname, "public")},
+    output: 
+    {
+        path: path.join(__dirname, 'site-dist'),
+        publicPath: '/',
+    },
 
     module:
     {
