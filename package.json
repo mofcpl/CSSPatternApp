@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "buildClient": "rmdir /s /q public && webpack --mode production &&  webpack --mode development --config webpack.config.js",
-    "buildClientLinux": "rm -rf public && webpack --mode production &&  webpack --mode development --config webpack.config.js",
+    "buildClient": "rmdir /s /q public && webpack --mode production",
+    "buildClientLinux": "rm -rf public && webpack --mode production",
     "onlyClient": "webpack-dev-server --mode development --open",
     "server": "nodemon ./bin/www",
     "install-fontello": "fontello-cli install --css ./src/fontello/css --font ./src/fontello/font",
-    "buildServer": "rmdir /s /q site-dist && webpack --mode production --config webpack.server.config.js",
+    "buildServer": "rmdir /s /q server-dist && webpack --mode production --config webpack.server.config.js",
     "buildServerLinux": "rm -rf server-dist && webpack --mode production --config webpack.server.config.js"
   },
   "keywords": [],
@@ -24,6 +24,7 @@
     "babel-polyfill": "^6.26.0",
     "css-loader": "^3.5.2",
     "file-loader": "^6.0.0",
+    "fontello-cli": "^0.5.0",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.2.0",
     "imagemin": "^7.0.1",

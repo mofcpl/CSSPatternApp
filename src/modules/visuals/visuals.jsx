@@ -19,11 +19,7 @@ const Links = (props) =>
     return(   
         <div className="area" id="links">
             <div className="card">
-                <div id="adfly">
-                    <a href="https://join-adf.ly/22762713">
-                        <img border="0" src="https://cdn.ay.gy/images/banners/adfly.728x90.1.gif" title="AdF.ly - shorten links and earn money!" />
-                    </a><br />
-                </div>
+
             </div>
         </div>
     );
@@ -33,8 +29,8 @@ const Footer = (props) =>
 {
     return(   
         <div className="area" id="footer">
-            <a href="" target="_blank"><i className="icon-home" /></a>
-            <a href="https://github.com/mofcpl" target="_blank"><i className="icon-github-circled" /></a>
+            <a href="https://zbrogdom.pl/" target="_blank"><i className="icon-home" /></a>
+            <a href="https://github.com/mofcpl/CSSPatternApp" target="_blank"><i className="icon-github-circled" /></a>
             <a href="https://www.linkedin.com/in/zbrogdom/" target="_blank"><i className="icon-linkedin-squared" /></a>
         </div>
     );
