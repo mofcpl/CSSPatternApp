@@ -11,7 +11,7 @@ const MainProp = (props) =>
     return(   
         <div className="area" id="main-prop">
             <div className="card">
-                    <Controls 
+                    <Controls
                         data={props.data} 
                         handleChangeWidth={props.pointer.handleWidthInput} 
                         handleChangeHeight={props.pointer.handleHeightInput} 
@@ -26,6 +26,8 @@ const MainProp = (props) =>
                         addLinear={props.pointer.handleAddLinear} 
                         addRadial={props.pointer.handleAddRadial}
                         clone={props.pointer.handleClone}
+                        moveUp={props.pointer.handleMoveUp}
+                        moveDown={props.pointer.handleMoveDown}
                     />
             </div>
         </div>

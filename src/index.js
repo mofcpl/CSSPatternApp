@@ -46,6 +46,8 @@ class App extends React.Component
         this.handleDeleteRadius = this.handleDeleteRadius.bind(this);
 
         this.handleClone = this.handleClone.bind(this);
+        this.handleMoveUp = this.handleMoveUp.bind(this);
+        this.handleMoveDown = this.handleMoveDown.bind(this);
         
         //LIST
         this.handleChangeLayer = this.handleChangeLayer.bind(this);
@@ -198,6 +200,16 @@ class App extends React.Component
             default: break;
         }
         
+    }
+
+    handleMoveUp()
+    {
+
+    }
+
+    handleMoveDown()
+    {
+
     }
 
 ////////////////////////////////////////////////////////////////////////LIST///////////////////////////////////////////////////////////////////////////////////
